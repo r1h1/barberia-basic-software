@@ -179,3 +179,17 @@ BEGIN
     ORDER BY S.EmployeeId, S.StartTime;
 END
 GO
+
+
+CREATE OR ALTER PROCEDURE dbo.sch_List
+@OnlyActive BIT = 1
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT *
+    FROM dbo.Schedules
+    WHERE (@OnlyActive = 0 OR IsActive = 1)
+    ORDER BY EmployeeId, DayOfWeek, StartTime;
+END
+

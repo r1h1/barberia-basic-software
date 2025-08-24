@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAyqHbFZC3ykOYmQnAeyXLMwAAAAACAAAAAAAQZgAAAAEAACAAAACFPfeVGdTPKVjhaLSBEmueYChALE+a9BtsMmSH7TcI4QAAAAAOgAAAAAIAACAAAADdW2BaJ+KWEFrTmLWwUf55SUvV4Bykvd35R1kXMRgznDAAAADBvu88pruMpe7AF43l5tFgFj95NBw73OoK+NwaByOi9PzMmi/NUVlLdZgsGaiGCOdAAAAAH5MAxFJTEjb0q9NFGiWEQObzqpbltGgLvYehaTZc9zVe55nKnnbKP8h1uK0OOgnd7StYmB5WQPO/RlR54kmAWA==</EncryptedPassword>
+    <_PublishTargetUrl>ftp://155.254.244.27/www.barbersoftapis.somee.com</_PublishTargetUrl>
+    <History>True|2025-08-24T18:03:41.7670567Z||;True|2025-08-18T21:04:43.8825025-06:00||;True|2025-08-18T21:00:48.3664939-06:00||;True|2025-08-18T20:56:18.8861416-06:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>08/13/2025 20:46:37</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>08/13/2025 21:24:57</publishTime>
+    </File>
+    <File Include="BarberiaSoftwareAPIs.deps.json">
+      <publishTime>08/24/2025 12:03:06</publishTime>
+    </File>
+    <File Include="BarberiaSoftwareAPIs.dll">
+      <publishTime>08/24/2025 12:03:06</publishTime>
+    </File>
+    <File Include="BarberiaSoftwareAPIs.exe">
+      <publishTime>08/24/2025 12:03:06</publishTime>
+    </File>
+    <File Include="BarberiaSoftwareAPIs.pdb">
+      <publishTime>08/24/2025 12:03:06</publishTime>
+    </File>
+    <File Include="BarberiaSoftwareAPIs.runtimeconfig.json">
+      <publishTime>08/18/2025 20:55:23</publishTime>
+    </File>
+    <File Include="BarberiaSoftwareAPIs.staticwebassets.endpoints.json">
+      <publishTime>08/18/2025 20:55:26</publishTime>
+    </File>
+    <File Include="Microsoft.OpenApi.dll">
+      <publishTime>06/03/2024 10:00:56</publishTime>
+    </File>
+    <File Include="runtimes/unix/lib/net8.0/System.Data.SqlClient.dll">
+      <publishTime>12/11/2024 15:47:16</publishTime>
+    </File>
+    <File Include="runtimes/win-arm64/native/sni.dll">
+      <publishTime>12/07/2017 05:24:24</publishTime>
+    </File>
+    <File Include="runtimes/win-x64/native/sni.dll">
+      <publishTime>12/07/2017 05:24:22</publishTime>
+    </File>
+    <File Include="runtimes/win-x86/native/sni.dll">
+      <publishTime>12/07/2017 05:24:22</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/net8.0/System.Data.SqlClient.dll">
+      <publishTime>12/11/2024 15:47:26</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll">
+      <publishTime>07/15/2025 11:30:44</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/net8.0/System.Diagnostics.EventLog.Messages.dll">
+      <publishTime>07/15/2025 11:30:02</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.Swagger.dll">
+      <publishTime>05/21/2024 10:42:50</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.SwaggerGen.dll">
+      <publishTime>05/21/2024 10:42:58</publishTime>
+    </File>
+    <File Include="Swashbuckle.AspNetCore.SwaggerUI.dll">
+      <publishTime>05/21/2024 10:42:50</publishTime>
+    </File>
+    <File Include="System.Configuration.ConfigurationManager.dll">
+      <publishTime>07/15/2025 11:32:46</publishTime>
+    </File>
+    <File Include="System.Data.SqlClient.dll">
+      <publishTime>12/11/2024 15:47:12</publishTime>
+    </File>
+    <File Include="System.Diagnostics.EventLog.dll">
+      <publishTime>07/15/2025 11:30:32</publishTime>
+    </File>
+    <File Include="System.Security.Cryptography.ProtectedData.dll">
+      <publishTime>07/15/2025 11:32:42</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>08/24/2025 12:03:06</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

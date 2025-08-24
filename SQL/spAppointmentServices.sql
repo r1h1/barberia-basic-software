@@ -144,3 +144,22 @@ END
 GO
 
 
+SET ANSI_NULLS ON;
+SET QUOTED_IDENTIFIER ON;
+GO
+CREATE OR ALTER PROCEDURE dbo.appsvc_List
+@OnlyActive BIT = 1
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT ASV.*, S.Name AS ServiceName, S.DurationMin, S.BasePrice
+    FROM dbo.AppointmentServices ASV
+             JOIN dbo.Services S ON S.ServiceId = ASV.ServiceId
+    WHERE (@OnlyActive = 0 OR ASV.IsActive = 1)
+    ORDER BY ASV.AppointmentServiceId DESC;
+END
+GO
+
+
+
