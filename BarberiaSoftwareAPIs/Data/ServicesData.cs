@@ -18,7 +18,7 @@ namespace BarberiaSoftwareAPIs.Data
         {
             List<Services> list = new();
             using var con = new SqlConnection(_connection);
-            using var cmd = new SqlCommand("serv_List", con);
+            using var cmd = new SqlCommand("svc_List", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@OnlyActive", onlyActive);
 
@@ -43,7 +43,7 @@ namespace BarberiaSoftwareAPIs.Data
         public async Task<Services?> GetServiceById(int id)
         {
             using var con = new SqlConnection(_connection);
-            using var cmd = new SqlCommand("serv_GetById", con);
+            using var cmd = new SqlCommand("svc_GetById", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ServiceId", id);
 
@@ -68,7 +68,7 @@ namespace BarberiaSoftwareAPIs.Data
         public async Task<Services> CreateService(Services model)
         {
             using var con = new SqlConnection(_connection);
-            using var cmd = new SqlCommand("serv_Create", con);
+            using var cmd = new SqlCommand("svc_Create", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Name", model.Name);
             cmd.Parameters.AddWithValue("@Description", (object?)model.Description ?? DBNull.Value);
@@ -99,7 +99,7 @@ namespace BarberiaSoftwareAPIs.Data
         public async Task<Services> UpdateService(Services model)
         {
             using var con = new SqlConnection(_connection);
-            using var cmd = new SqlCommand("serv_Update", con);
+            using var cmd = new SqlCommand("svc_Update", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ServiceId", model.ServiceId);
             cmd.Parameters.AddWithValue("@Name", model.Name);
@@ -132,7 +132,7 @@ namespace BarberiaSoftwareAPIs.Data
         public async Task<Services> SoftDeleteService(int id)
         {
             using var con = new SqlConnection(_connection);
-            using var cmd = new SqlCommand("serv_DeleteSoft", con);
+            using var cmd = new SqlCommand("svc_DeleteSoft", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ServiceId", id);
 

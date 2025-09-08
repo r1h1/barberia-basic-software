@@ -255,6 +255,95 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "BarberiaSoftwareAPIs.Controllers.AvailabilityController",
+    "Method": "CheckAvailability",
+    "RelativePath": "api/v1/Availability/check-availability",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "BarberiaSoftwareAPIs.Models.AvailabilityCheckRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BarberiaSoftwareAPIs.Controllers.AvailabilityController",
+    "Method": "GetEmployeeAppointments",
+    "RelativePath": "api/v1/Availability/employee-appointments/{employeeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "employeeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "date",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BarberiaSoftwareAPIs.Controllers.AvailabilityController",
+    "Method": "GetAvailableEmployeesWithSlots",
+    "RelativePath": "api/v1/Availability/employees-with-slots",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "date",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BarberiaSoftwareAPIs.Controllers.AvailabilityController",
+    "Method": "QuickCheckAvailability",
+    "RelativePath": "api/v1/Availability/quick-check",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "employeeId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "date",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "startTime",
+        "Type": "System.TimeSpan",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BarberiaSoftwareAPIs.Controllers.AvailabilityController",
+    "Method": "GetAllServices",
+    "RelativePath": "api/v1/Availability/services",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BarberiaSoftwareAPIs.Controllers.ClientsController",
     "Method": "GetAll",
     "RelativePath": "api/v1/Clients",

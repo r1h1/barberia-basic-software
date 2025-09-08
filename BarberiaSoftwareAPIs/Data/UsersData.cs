@@ -34,8 +34,8 @@ namespace BarberiaSoftwareAPIs.Data
                     UserId = reader.GetInt32("UserId"),
                     Name = reader.GetString("Name"),
                     Email = reader.GetString("Email"),
-                    Username = reader.IsDBNull("Username") ? null : reader.GetString("Username"),
-                    Password = reader.IsDBNull("Password") ? null : reader.GetString("Password"),
+                    Phone = reader.GetString("Phone"),
+                    Role = reader.GetString("Role"),
                     IsActive = reader.GetBoolean("IsActive")
                 });
             }
@@ -62,8 +62,8 @@ namespace BarberiaSoftwareAPIs.Data
                     UserId = reader.GetInt32("UserId"),
                     Name = reader.GetString("Name"),
                     Email = reader.GetString("Email"),
-                    Username = reader.IsDBNull("Username") ? null : reader.GetString("Username"),
-                    Password = reader.IsDBNull("Password") ? null : reader.GetString("Password"),
+                    Phone = reader.GetString("Phone"),
+                    Role = reader.GetString("Role"),
                     IsActive = reader.GetBoolean("IsActive")
                 };
             }
@@ -82,8 +82,8 @@ namespace BarberiaSoftwareAPIs.Data
             };
             cmd.Parameters.AddWithValue("@Name", model.Name);
             cmd.Parameters.AddWithValue("@Email", model.Email);
-            cmd.Parameters.AddWithValue("@Username", (object?)model.Username ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("@Password", (object?)model.Password ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@Phone", model.Phone);
+            cmd.Parameters.AddWithValue("@Role", model.Role);
 
             using var reader = await cmd.ExecuteReaderAsync();
             if (await reader.ReadAsync())
@@ -107,8 +107,8 @@ namespace BarberiaSoftwareAPIs.Data
             cmd.Parameters.AddWithValue("@UserId", model.UserId);
             cmd.Parameters.AddWithValue("@Name", model.Name);
             cmd.Parameters.AddWithValue("@Email", model.Email);
-            cmd.Parameters.AddWithValue("@Username", (object?)model.Username ?? DBNull.Value);
-            cmd.Parameters.AddWithValue("@Password", (object?)model.Password ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@Phone", model.Phone);
+            cmd.Parameters.AddWithValue("@Role", model.Role);
             cmd.Parameters.AddWithValue("@IsActive", model.IsActive);
 
             using var reader = await cmd.ExecuteReaderAsync();

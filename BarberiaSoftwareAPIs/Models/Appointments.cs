@@ -35,6 +35,10 @@ namespace BarberiaSoftwareAPIs.Models
         [NotMapped] public string? ClientName { get; set; }
         [NotMapped] public string? EmployeeName { get; set; }
 
+        // 🔹 Agregar para que compile GetEmployeeAppointments:
+        [NotMapped] public string? ServiceName { get; set; }
+        [NotMapped] public int? DurationMin { get; set; }
+
         // Mensajería de SPs
         [NotMapped] public int Success { get; set; } = 0;
         [NotMapped] public string? Message { get; set; }

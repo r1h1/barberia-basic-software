@@ -21,6 +21,7 @@ builder.Services.AddScoped<EmployeesData>();
 builder.Services.AddScoped<UsersData>();
 builder.Services.AddScoped<SchedulesData>();
 builder.Services.AddScoped<PaymentsData>();
+builder.Services.AddScoped<AvailabilityData>();
 
 
 var app = builder.Build();

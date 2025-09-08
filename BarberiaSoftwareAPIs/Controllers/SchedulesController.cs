@@ -136,6 +136,15 @@ namespace BarberiaSoftwareAPIs.Controllers
                 });
             }
 
+            if (model.StartTime >= model.EndTime)
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "La hora de inicio debe ser menor a la hora de fin."
+                });
+            }
+
             try
             {
                 model = await _data.Create(model);

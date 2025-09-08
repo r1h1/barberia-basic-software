@@ -16,6 +16,9 @@ BEGIN
     IF (@Email IS NOT NULL AND EXISTS(SELECT 1 FROM dbo.Users WHERE Email = @Email))
         BEGIN SELECT CAST(0 AS BIT) AS Success, N'El email ya existe.' AS [Message]; RETURN; END;
 
+    IF (@Email IS NOT NULL AND EXISTS(SELECT 1 FROM dbo.Users WHERE Email = @Email))
+        BEGIN SELECT CAST(0 AS BIT) AS Success, N'El email ya existe.' AS [Message]; RETURN; END;
+
     IF (@Phone IS NOT NULL AND EXISTS(SELECT 1 FROM dbo.Users WHERE Phone = @Phone))
         BEGIN SELECT CAST(0 AS BIT) AS Success, N'El teléfono ya existe.' AS [Message]; RETURN; END;
 

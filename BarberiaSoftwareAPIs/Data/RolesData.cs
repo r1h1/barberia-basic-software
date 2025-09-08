@@ -21,7 +21,7 @@ namespace BarberiaSoftwareAPIs.Data
             await using var con = new SqlConnection(_connection);
             await con.OpenAsync();
 
-            using var cmd = new SqlCommand("role_GetAll", con) { CommandType = CommandType.StoredProcedure };
+            using var cmd = new SqlCommand("role_List", con) { CommandType = CommandType.StoredProcedure };
             using var reader = await cmd.ExecuteReaderAsync();
 
             while (await reader.ReadAsync())

@@ -9,5 +9,12 @@
       <jdbc-url>jdbc:sqlserver://barberiasoftware.mssql.somee.com;database=barberiasoftware</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="PruebaServir" uuid="4c3e55dd-9026-4841-8ea3-d10c9da1ee48">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://fullstackdeveloperservirprueba.mssql.somee.com;database=fullstackdeveloperservirprueba</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

@@ -16,13 +16,13 @@ namespace BarberiaSoftwareAPIs.Models
         [StringLength(200, ErrorMessage = "El correo no puede exceder los 200 caracteres.")]
         public string Email { get; set; } = string.Empty;
 
-        [StringLength(100, ErrorMessage = "El nombre de usuario no puede exceder los 100 caracteres.")]
-        public string? Username { get; set; }
+        [Required(ErrorMessage = "El número de teléfono es obligatorio.")]
+        [StringLength(50, ErrorMessage = "El número de teléfono no puede exceder los 50 caracteres.")]
+        public string Phone { get; set; } = string.Empty;
 
-        [StringLength(100, ErrorMessage = "La contraseña no puede exceder los 100 caracteres.")]
-        public string? Password { get; set; }
+        public string? Role { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "El estado activo es obligatorio.")]
+        [Required(ErrorMessage = "El estado activo/inactivo es obligatorio.")]
         public bool IsActive { get; set; }
 
         public int Success { get; set; } = 0;

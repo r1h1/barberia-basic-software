@@ -403,6 +403,140 @@
         }
       }
     },
+    "/api/v1/Availability/employees-with-slots": {
+      "get": {
+        "tags": [
+          "Availability"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/Availability/check-availability": {
+      "post": {
+        "tags": [
+          "Availability"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AvailabilityCheckRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AvailabilityCheckRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AvailabilityCheckRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/Availability/employee-appointments/{employeeId}": {
+      "get": {
+        "tags": [
+          "Availability"
+        ],
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/Availability/services": {
+      "get": {
+        "tags": [
+          "Availability"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/Availability/quick-check": {
+      "get": {
+        "tags": [
+          "Availability"
+        ],
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-span"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/Clients": {
       "get": {
         "tags": [
@@ -1492,6 +1626,15 @@
             "type": "string",
             "nullable": true
           },
+          "serviceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "durationMin": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
           "success": {
             "type": "integer",
             "format": "int32"
@@ -1499,6 +1642,29 @@
           "message": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AvailabilityCheckRequest": {
+        "required": [
+          "date",
+          "employeeId",
+          "startTime"
+        ],
+        "type": "object",
+        "properties": {
+          "employeeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-span"
           }
         },
         "additionalProperties": false
@@ -1826,6 +1992,7 @@
           "email",
           "isActive",
           "name",
+          "phone",
           "userId"
         ],
         "type": "object",
@@ -1845,15 +2012,12 @@
             "type": "string",
             "format": "email"
           },
-          "username": {
-            "maxLength": 100,
+          "phone": {
+            "maxLength": 50,
             "minLength": 0,
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
-          "password": {
-            "maxLength": 100,
-            "minLength": 0,
+          "role": {
             "type": "string",
             "nullable": true
           },
