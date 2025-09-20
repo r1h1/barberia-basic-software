@@ -5,7 +5,7 @@
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAyqHbFZC3ykOYmQnAeyXLMwAAAAACAAAAAAAQZgAAAAEAACAAAACFPfeVGdTPKVjhaLSBEmueYChALE+a9BtsMmSH7TcI4QAAAAAOgAAAAAIAACAAAADdW2BaJ+KWEFrTmLWwUf55SUvV4Bykvd35R1kXMRgznDAAAADBvu88pruMpe7AF43l5tFgFj95NBw73OoK+NwaByOi9PzMmi/NUVlLdZgsGaiGCOdAAAAAH5MAxFJTEjb0q9NFGiWEQObzqpbltGgLvYehaTZc9zVe55nKnnbKP8h1uK0OOgnd7StYmB5WQPO/RlR54kmAWA==</EncryptedPassword>
     <_PublishTargetUrl>ftp://155.254.244.27/www.barbersoftapis.somee.com</_PublishTargetUrl>
-    <History>True|2025-09-08T02:47:40.6644948Z||;True|2025-08-31T12:10:32.1418490-06:00||;True|2025-08-24T12:03:41.7670567-06:00||;True|2025-08-18T21:04:43.8825025-06:00||;True|2025-08-18T21:00:48.3664939-06:00||;True|2025-08-18T20:56:18.8861416-06:00||;</History>
+    <History>True|2025-09-20T19:05:15.2724351Z||;True|2025-09-07T20:47:40.6644948-06:00||;True|2025-08-31T12:10:32.1418490-06:00||;True|2025-08-24T12:03:41.7670567-06:00||;True|2025-08-18T21:04:43.8825025-06:00||;True|2025-08-18T21:00:48.3664939-06:00||;True|2025-08-18T20:56:18.8861416-06:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -16,16 +16,16 @@
       <publishTime>08/13/2025 21:24:57</publishTime>
     </File>
     <File Include="BarberiaSoftwareAPIs.deps.json">
-      <publishTime>09/07/2025 20:47:06</publishTime>
+      <publishTime>09/20/2025 13:04:31</publishTime>
     </File>
     <File Include="BarberiaSoftwareAPIs.dll">
-      <publishTime>09/07/2025 20:47:05</publishTime>
+      <publishTime>09/20/2025 13:04:31</publishTime>
     </File>
     <File Include="BarberiaSoftwareAPIs.exe">
-      <publishTime>09/07/2025 20:47:05</publishTime>
+      <publishTime>09/20/2025 13:04:31</publishTime>
     </File>
     <File Include="BarberiaSoftwareAPIs.pdb">
-      <publishTime>09/07/2025 20:47:05</publishTime>
+      <publishTime>09/20/2025 13:04:31</publishTime>
     </File>
     <File Include="BarberiaSoftwareAPIs.runtimeconfig.json">
       <publishTime>08/18/2025 20:55:23</publishTime>
@@ -34,22 +34,22 @@
       <publishTime>08/18/2025 20:55:26</publishTime>
     </File>
     <File Include="Microsoft.OpenApi.dll">
-      <publishTime>06/03/2024 10:00:56</publishTime>
+      <publishTime>03/06/2024 10:00:56</publishTime>
     </File>
     <File Include="runtimes/unix/lib/net8.0/System.Data.SqlClient.dll">
-      <publishTime>12/11/2024 15:47:16</publishTime>
+      <publishTime>11/12/2024 15:47:16</publishTime>
     </File>
     <File Include="runtimes/win-arm64/native/sni.dll">
-      <publishTime>12/07/2017 05:24:24</publishTime>
+      <publishTime>07/12/2017 05:24:24</publishTime>
     </File>
     <File Include="runtimes/win-x64/native/sni.dll">
-      <publishTime>12/07/2017 05:24:22</publishTime>
+      <publishTime>07/12/2017 05:24:22</publishTime>
     </File>
     <File Include="runtimes/win-x86/native/sni.dll">
-      <publishTime>12/07/2017 05:24:22</publishTime>
+      <publishTime>07/12/2017 05:24:22</publishTime>
     </File>
     <File Include="runtimes/win/lib/net8.0/System.Data.SqlClient.dll">
-      <publishTime>12/11/2024 15:47:26</publishTime>
+      <publishTime>11/12/2024 15:47:26</publishTime>
     </File>
     <File Include="runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll">
       <publishTime>07/15/2025 11:30:44</publishTime>
@@ -70,7 +70,7 @@
       <publishTime>07/15/2025 11:32:46</publishTime>
     </File>
     <File Include="System.Data.SqlClient.dll">
-      <publishTime>12/11/2024 15:47:12</publishTime>
+      <publishTime>11/12/2024 15:47:12</publishTime>
     </File>
     <File Include="System.Diagnostics.EventLog.dll">
       <publishTime>07/15/2025 11:30:32</publishTime>
@@ -79,7 +79,7 @@
       <publishTime>07/15/2025 11:32:42</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>09/07/2025 20:47:06</publishTime>
+      <publishTime>09/20/2025 13:04:31</publishTime>
     </File>
   </ItemGroup>
 </Project>

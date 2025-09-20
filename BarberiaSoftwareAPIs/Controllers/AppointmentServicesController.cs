@@ -15,7 +15,7 @@ namespace BarberiaSoftwareAPIs.Controllers
             _data = data;
         }
 
-        [HttpGet("by-appointment/{appointmentId}")]
+        [HttpGet("ByAppointment/{appointmentId}")]
         public async Task<IActionResult> GetByAppointment(int appointmentId)
         {
             try

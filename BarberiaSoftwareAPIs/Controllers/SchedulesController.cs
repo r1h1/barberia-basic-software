@@ -16,7 +16,7 @@ namespace BarberiaSoftwareAPIs.Controllers
         }
 
         // GET api/v1/Schedules/by-employee/5?onlyActive=true
-        [HttpGet("by-employee/{employeeId}")]
+        [HttpGet("ByEmployee/{employeeId}")]
         public async Task<IActionResult> GetByEmployee(int employeeId, [FromQuery] bool onlyActive = true)
         {
             try
@@ -52,7 +52,7 @@ namespace BarberiaSoftwareAPIs.Controllers
         }
 
         // GET api/v1/Schedules/by-day/1?onlyActive=true
-        [HttpGet("by-day/{dayOfWeek}")]
+        [HttpGet("ByDay/{dayOfWeek}")]
         public async Task<IActionResult> GetByDay(byte dayOfWeek, [FromQuery] bool onlyActive = true)
         {
             try

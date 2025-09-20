@@ -23,7 +23,7 @@ namespace BarberiaSoftwareAPIs.Controllers
         /// </summary>
         /// <param name="date">Fecha para consultar disponibilidad (formato: yyyy-MM-dd)</param>
         /// <returns>Lista de empleados con slots disponibles</returns>
-        [HttpGet("employees-with-slots")]
+        [HttpGet("EmployeesWithSlots")]
         public async Task<IActionResult> GetAvailableEmployeesWithSlots([FromQuery] DateTime date)
         {
             try
@@ -63,7 +63,7 @@ namespace BarberiaSoftwareAPIs.Controllers
         /// </summary>
         /// <param name="request">Solicitud de verificación de disponibilidad</param>
         /// <returns>Estado de disponibilidad del horario</returns>
-        [HttpPost("check-availability")]
+        [HttpPost("CheckAvailability")]
         public async Task<IActionResult> CheckAvailability([FromBody] AvailabilityCheckRequest request)
         {
             try
@@ -105,7 +105,7 @@ namespace BarberiaSoftwareAPIs.Controllers
         /// <param name="employeeId">ID del empleado</param>
         /// <param name="date">Fecha para consultar citas (formato: yyyy-MM-dd)</param>
         /// <returns>Lista de citas del empleado</returns>
-        [HttpGet("employee-appointments/{employeeId}")]
+        [HttpGet("EmployeeAppointments/{employeeId}")]
         public async Task<IActionResult> GetEmployeeAppointments(int employeeId, [FromQuery] DateTime date)
         {
             try
@@ -144,7 +144,7 @@ namespace BarberiaSoftwareAPIs.Controllers
         /// Obtiene todos los servicios disponibles
         /// </summary>
         /// <returns>Lista de servicios activos</returns>
-        [HttpGet("services")]
+        [HttpGet("Services")]
         public async Task<IActionResult> GetAllServices()
         {
             try
@@ -182,7 +182,7 @@ namespace BarberiaSoftwareAPIs.Controllers
         /// <summary>
         /// Endpoint para verificación rápida de disponibilidad vía GET
         /// </summary>
-        [HttpGet("quick-check")]
+        [HttpGet("QuickAvailabilityCheck")]
         public async Task<IActionResult> QuickCheckAvailability(
             [FromQuery] int employeeId,
             [FromQuery] DateTime date,

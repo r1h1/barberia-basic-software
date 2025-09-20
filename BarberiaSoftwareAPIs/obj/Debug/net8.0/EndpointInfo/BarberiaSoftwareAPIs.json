@@ -276,7 +276,7 @@
         }
       }
     },
-    "/api/v1/AppointmentServices/by-appointment/{appointmentId}": {
+    "/api/v1/AppointmentServices/ByAppointment/{appointmentId}": {
       "get": {
         "tags": [
           "AppointmentServices"
@@ -403,7 +403,131 @@
         }
       }
     },
-    "/api/v1/Availability/employees-with-slots": {
+    "/api/v1/Auth/Login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/Auth/Register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/Auth/NewPassword": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/Auth": {
+      "put": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAuthUserRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAuthUserRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAuthUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/Availability/EmployeesWithSlots": {
       "get": {
         "tags": [
           "Availability"
@@ -425,7 +549,7 @@
         }
       }
     },
-    "/api/v1/Availability/check-availability": {
+    "/api/v1/Availability/CheckAvailability": {
       "post": {
         "tags": [
           "Availability"
@@ -456,7 +580,7 @@
         }
       }
     },
-    "/api/v1/Availability/employee-appointments/{employeeId}": {
+    "/api/v1/Availability/EmployeeAppointments/{employeeId}": {
       "get": {
         "tags": [
           "Availability"
@@ -487,7 +611,7 @@
         }
       }
     },
-    "/api/v1/Availability/services": {
+    "/api/v1/Availability/Services": {
       "get": {
         "tags": [
           "Availability"
@@ -499,7 +623,7 @@
         }
       }
     },
-    "/api/v1/Availability/quick-check": {
+    "/api/v1/Availability/QuickAvailabilityCheck": {
       "get": {
         "tags": [
           "Availability"
@@ -1053,7 +1177,7 @@
         }
       }
     },
-    "/api/v1/Schedules/by-employee/{employeeId}": {
+    "/api/v1/Schedules/ByEmployee/{employeeId}": {
       "get": {
         "tags": [
           "Schedules"
@@ -1084,7 +1208,7 @@
         }
       }
     },
-    "/api/v1/Schedules/by-day/{dayOfWeek}": {
+    "/api/v1/Schedules/ByDay/{dayOfWeek}": {
       "get": {
         "tags": [
           "Schedules"
@@ -1669,6 +1793,33 @@
         },
         "additionalProperties": false
       },
+      "ChangePasswordRequest": {
+        "required": [
+          "currentPassword",
+          "newPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "authUserId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "currentPassword": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "newPassword": {
+            "minLength": 8,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "Clients": {
         "required": [
           "name"
@@ -1762,6 +1913,24 @@
         },
         "additionalProperties": false
       },
+      "LoginRequest": {
+        "required": [
+          "login",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "login": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "Payments": {
         "required": [
           "appointmentId",
@@ -1849,6 +2018,43 @@
           "message": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterRequest": {
+        "required": [
+          "password",
+          "roleId",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 8,
+            "type": "string"
+          },
+          "roleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "employeeId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -1983,6 +2189,43 @@
           "message": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateAuthUserRequest": {
+        "required": [
+          "authUserId",
+          "roleId",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "authUserId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "roleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "employeeId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

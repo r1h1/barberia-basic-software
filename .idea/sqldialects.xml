@@ -14,5 +14,6 @@
     <file url="file://$PROJECT_DIR$/SQL/spSecLoginBasic.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/SQL/spServices.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/SQL/spUsers.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/../../ServirPruebaDesarrollo/consultas.sql" dialect="TSQL" />
   </component>
 </project>

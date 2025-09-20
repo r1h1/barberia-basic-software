@@ -241,7 +241,7 @@
   {
     "ContainingType": "BarberiaSoftwareAPIs.Controllers.AppointmentServicesController",
     "Method": "GetByAppointment",
-    "RelativePath": "api/v1/AppointmentServices/by-appointment/{appointmentId}",
+    "RelativePath": "api/v1/AppointmentServices/ByAppointment/{appointmentId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -255,9 +255,73 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "BarberiaSoftwareAPIs.Controllers.AuthController",
+    "Method": "UpdateAuthUser",
+    "RelativePath": "api/v1/Auth",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "BarberiaSoftwareAPIs.Models.UpdateAuthUserRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BarberiaSoftwareAPIs.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/v1/Auth/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "BarberiaSoftwareAPIs.Models.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BarberiaSoftwareAPIs.Controllers.AuthController",
+    "Method": "ChangePassword",
+    "RelativePath": "api/v1/Auth/NewPassword",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "BarberiaSoftwareAPIs.Models.ChangePasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BarberiaSoftwareAPIs.Controllers.AuthController",
+    "Method": "Register",
+    "RelativePath": "api/v1/Auth/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "BarberiaSoftwareAPIs.Models.RegisterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BarberiaSoftwareAPIs.Controllers.AvailabilityController",
     "Method": "CheckAvailability",
-    "RelativePath": "api/v1/Availability/check-availability",
+    "RelativePath": "api/v1/Availability/CheckAvailability",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -273,7 +337,7 @@
   {
     "ContainingType": "BarberiaSoftwareAPIs.Controllers.AvailabilityController",
     "Method": "GetEmployeeAppointments",
-    "RelativePath": "api/v1/Availability/employee-appointments/{employeeId}",
+    "RelativePath": "api/v1/Availability/EmployeeAppointments/{employeeId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -294,7 +358,7 @@
   {
     "ContainingType": "BarberiaSoftwareAPIs.Controllers.AvailabilityController",
     "Method": "GetAvailableEmployeesWithSlots",
-    "RelativePath": "api/v1/Availability/employees-with-slots",
+    "RelativePath": "api/v1/Availability/EmployeesWithSlots",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -310,7 +374,7 @@
   {
     "ContainingType": "BarberiaSoftwareAPIs.Controllers.AvailabilityController",
     "Method": "QuickCheckAvailability",
-    "RelativePath": "api/v1/Availability/quick-check",
+    "RelativePath": "api/v1/Availability/QuickAvailabilityCheck",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -336,7 +400,7 @@
   {
     "ContainingType": "BarberiaSoftwareAPIs.Controllers.AvailabilityController",
     "Method": "GetAllServices",
-    "RelativePath": "api/v1/Availability/services",
+    "RelativePath": "api/v1/Availability/Services",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -744,7 +808,7 @@
   {
     "ContainingType": "BarberiaSoftwareAPIs.Controllers.SchedulesController",
     "Method": "GetByDay",
-    "RelativePath": "api/v1/Schedules/by-day/{dayOfWeek}",
+    "RelativePath": "api/v1/Schedules/ByDay/{dayOfWeek}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -765,7 +829,7 @@
   {
     "ContainingType": "BarberiaSoftwareAPIs.Controllers.SchedulesController",
     "Method": "GetByEmployee",
-    "RelativePath": "api/v1/Schedules/by-employee/{employeeId}",
+    "RelativePath": "api/v1/Schedules/ByEmployee/{employeeId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
