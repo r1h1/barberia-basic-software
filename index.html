@@ -9,14 +9,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="src/assets/css/common.css">
+    <link rel="stylesheet" href="src/assets/css/login.css">
 </head>
 
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Barbería Christopher</a>
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-scissors me-2"></i>Barbería Christopher
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -41,7 +43,8 @@
                     <h1 class="display-4 fw-bold mb-4 mt-5">Estilo y Tradición en Cada Corte</h1>
                     <p class="lead mb-5 mt-5">En Classic Barber combinamos técnicas tradicionales con los estilos más
                         modernos para brindarte la mejor experiencia de barbería.</p>
-                    <a href="#" class="btn btn-booking" data-bs-toggle="modal" data-bs-target="#loginModal">Reserva tu Cita</a>
+                    <a href="#" class="btn btn-booking" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="bi bi-calendar-check me-2"></i>Reserva tu
+                        Cita</a>
                 </div>
             </div>
         </div>
@@ -69,7 +72,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card service-card h-100 text-center p-4">
                         <i class="bi bi-star service-icon"></i>
-                        <h3>Servicios Premiums</h3>
+                        <h3>Servicios Premium</h3>
                         <p>Pregunta por tu servicio, seguramente lo tenemos disponible</p>
                     </div>
                 </div>
@@ -163,7 +166,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="loginForm">
                         <div class="mb-3">
                             <label for="user" class="form-label">Usuario</label>
                             <input type="text" class="form-control" id="user" placeholder="nombre@ejemplo.com">
@@ -173,7 +176,7 @@
                             <input type="password" class="form-control" id="password"
                                 placeholder="Ingresa tu contraseña">
                         </div>
-                        <button type="submit" class="btn btn-login w-100">Iniciar Sesión</button>
+                        <button type="submit" class="btn btn-login w-100" id="login">Iniciar Sesión</button>
                     </form>
                     <div class="text-center mt-3">
                         <a href="#">¿Olvidaste tu contraseña?</a>
@@ -189,6 +192,16 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('loginForm');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                location.href = "src/views/dashboard.html";
+            });
+        });
+    </script>
 </body>
 
 </html>

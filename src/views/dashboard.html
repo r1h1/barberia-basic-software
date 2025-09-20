@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barbería Christopher - Sistema Administrativo</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"> 
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+
+<body>
+    <!-- Navbar mejorada -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-scissors me-2"></i>Barbería Christopher
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="bi bi-house-door me-1"></i>Inicio
+                        </a>
+                    </li>
+                    
+                    <!-- Menú desplegable para Gestión -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="gestionDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-gear me-1"></i>Gestión
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="gestionDropdown">
+                            <li><a class="dropdown-item" href="#usuarios"><i class="bi bi-people me-2"></i>Usuarios</a></li>
+                            <li><a class="dropdown-item" href="#roles"><i class="bi bi-person-badge me-2"></i>Roles</a></li>
+                            <li><a class="dropdown-item" href="#empleados"><i class="bi bi-person-video me-2"></i>Empleados</a></li>
+                            <li><a class="dropdown-item" href="#clientes"><i class="bi bi-person-circle me-2"></i>Clientes</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Menú desplegable para Servicios -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="serviciosDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-scissors me-1"></i>Servicios
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
+                            <li><a class="dropdown-item" href="#servicios"><i class="bi bi-list-check me-2"></i>Servicios</a></li>
+                            <li><a class="dropdown-item" href="#citas-servicios"><i class="bi bi-calendar-check me-2"></i>Servicios de Citas</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Menú desplegable para Citas -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="citasDropdown" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-calendar-event me-1"></i>Citas
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="citasDropdown">
+                            <li><a class="dropdown-item" href="#programacion"><i class="bi bi-clock me-2"></i>Programación</a></li>
+                            <li><a class="dropdown-item" href="#disponibilidad"><i class="bi bi-calendar2-check me-2"></i>Disponibilidad</a></li>
+                            <li><a class="dropdown-item" href="#citas"><i class="bi bi-calendar-plus me-2"></i>Citas</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pagos">
+                            <i class="bi bi-credit-card me-1"></i>Pagos
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#anuncios">
+                            <i class="bi bi-megaphone me-1"></i>Anuncios
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item ms-lg-2 mt-3 mt-lg-0">
+                        <a class="btn btn-login w-100" href="../../index.html">
+                            <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="main-content">
+                    <h1 class="welcome-title">Sistema Administrativo</h1>
+                    <p class="lead">Bienvenido al panel de administración de Barbería Christopher</p>
+                    <p>Selecciona una opción del menú superior para gestionar los diferentes aspectos de tu barbería.</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-light p-3 rounded-circle me-3">
+                                    <i class="bi bi-people fs-3 text-primary"></i>
+                                </div>
+                                <div>
+                                    <h5>Gestión de Clientes</h5>
+                                    <p class="mb-0">Administra la información de tus clientes y su historial</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-light p-3 rounded-circle me-3">
+                                    <i class="bi bi-calendar-event fs-3 text-primary"></i>
+                                </div>
+                                <div>
+                                    <h5>Programación de Citas</h5>
+                                    <p class="mb-0">Controla y organiza las citas de tus clientes</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-light p-3 rounded-circle me-3">
+                                    <i class="bi bi-currency-dollar fs-3 text-primary"></i>
+                                </div>
+                                <div>
+                                    <h5>Control de Pagos</h5>
+                                    <p class="mb-0">Gestiona los pagos y facturación de servicios</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-light p-3 rounded-circle me-3">
+                                    <i class="bi bi-bar-chart fs-3 text-primary"></i>
+                                </div>
+                                <div>
+                                    <h5>Reportes y Análisis</h5>
+                                    <p class="mb-0">Genera reportes del rendimiento de tu negocio</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-5" id="contacto">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <h4>BARBERÍA CHRISTOPHER</h4>
+                    <p>La tradición de la buena barbería con un toque moderno.</p>
+                    <div class="mt-3">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <h5>Contacto</h5>
+                    <p><i class="bi bi-geo-alt-fill me-2"></i> Av. Principal #123, Ciudad</p>
+                    <p><i class="bi bi-telephone-fill me-2"></i> (123) 456-7890</p>
+                    <p><i class="bi bi-envelope-fill me-2"></i> info@barberiachristopher.com</p>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
