@@ -58,7 +58,7 @@
                         <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
                             <li><a class="dropdown-item" href="services.html"><i
                                         class="bi bi-list-check me-2"></i>Servicios</a></li>
-                            <li><a class="dropdown-item" href="appointment-services.html"><i
+                            <li><a class="dropdown-item" href="appoinments-services.html"><i
                                         class="bi bi-calendar-check me-2"></i>Servicios de Citas</a></li>
                         </ul>
                     </li>
@@ -70,11 +70,11 @@
                             <i class="bi bi-calendar-event me-1"></i>Citas
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="citasDropdown">
-                            <li><a class="dropdown-item" href="schedules.html"><i
+                            <li><a class="dropdown-item" href="appointment.html"><i
                                         class="bi bi-clock me-2"></i>Programación</a></li>
                             <li><a class="dropdown-item" href="availability.html"><i
                                         class="bi bi-calendar2-check me-2"></i>Disponibilidad</a></li>
-                            <li><a class="dropdown-item" href="appointments.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
+                            <li><a class="dropdown-item" href="appointment2.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
                             </li>
                         </ul>
                     </li>
@@ -102,27 +102,47 @@
     </nav>
 
     <!-- Contenido principal -->
-    <main class="container my-3">
+    <main class="container-fluid my-2">
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
                 <div class="main-content">
-                    <h1 class="welcome-title">{anuncio1}</h1>
-                    <p class="lead">{anuncioTitulo}</p>
-                    <p>{anuncioTexto}</p>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="main-content">
-                    <h1 class="welcome-title">{anuncio2}</h1>
-                    <p class="lead">{anuncioTitulo}</p>
-                    <p>{anuncioTexto}</p>
+                    <h1 class="welcome-title">Citas Programadas</h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td colspan="2">Larry the Bird</td>
+                                <td>@twitter</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="footer" id="contacto">
+    <footer class="footer mt-5" id="contacto">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-4">
