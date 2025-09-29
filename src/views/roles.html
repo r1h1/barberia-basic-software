@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbería Christopher - Sistema Administrativo</title>
+    <title>Barbería Christopher - Gestión de Roles</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        .permissions-container {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            padding: 15px;
+        }
+        .permission-group {
+            margin-bottom: 20px;
+        }
+        .permission-group h6 {
+            color: var(--dark-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        .permission-item {
+            margin-bottom: 8px;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Navbar mejorada -->
     <!-- Navbar mejorada -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
@@ -27,7 +48,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.html">
+                        <a class="nav-link active" href="dashboard.html">
                             <i class="bi bi-house-door me-1"></i>Inicio
                         </a>
                     </li>
@@ -59,7 +80,7 @@
                         <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
                             <li><a class="dropdown-item" href="services.html"><i
                                         class="bi bi-list-check me-2"></i>Servicios</a></li>
-                            <li><a class="dropdown-item" href="appoinments-services.html"><i
+                            <li><a class="dropdown-item" href="appointment-services.html"><i
                                         class="bi bi-calendar-check me-2"></i>Servicios de Citas</a></li>
                         </ul>
                     </li>
@@ -71,11 +92,11 @@
                             <i class="bi bi-calendar-event me-1"></i>Citas
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="citasDropdown">
-                            <li><a class="dropdown-item" href="appointment.html"><i
+                            <li><a class="dropdown-item" href="schedules.html"><i
                                         class="bi bi-clock me-2"></i>Programación</a></li>
                             <li><a class="dropdown-item" href="availability.html"><i
                                         class="bi bi-calendar2-check me-2"></i>Disponibilidad</a></li>
-                            <li><a class="dropdown-item" href="appointment2.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
+                            <li><a class="dropdown-item" href="appointments.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
                             </li>
                         </ul>
                     </li>
@@ -105,86 +126,169 @@
     <!-- Contenido principal -->
     <main class="container-fluid my-2">
         <div class="row">
-            <div class="col-6">
+            <div class="col-lg-8">
                 <div class="main-content">
-                    <h1 class="welcome-title">Roles</h1>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h1 class="welcome-title">Lista de Roles</h1>
+                    <div class="table-responsive">
+                        <table id="rolesTable" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre del Rol</th>
+                                    <th>Acceso a Menús</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Los datos se cargarán dinámicamente con JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-4">
                 <div class="main-content">
-                    <h1 class="welcome-title">Mantenimiento</h1>
-                    <form class="row g-3">
-                        <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputPassword4" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4">
-                        </div>
+                    <h1 class="welcome-title">Mantenimiento de Roles</h1>
+                    <form id="roleForm" class="row g-3">
+                        <input type="hidden" id="roleId" name="roleId">
+                        
                         <div class="col-12">
-                            <label for="inputAddress" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                            <label for="roleName" class="form-label">Nombre del Rol</label>
+                            <input type="text" class="form-control" id="roleName" name="roleName" required>
                         </div>
+                        
                         <div class="col-12">
-                            <label for="inputAddress2" class="form-label">Address 2</label>
-                            <input type="text" class="form-control" id="inputAddress2"
-                                placeholder="Apartment, studio, or floor">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputCity" class="form-label">City</label>
-                            <input type="text" class="form-control" id="inputCity">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="inputState" class="form-label">State</label>
-                            <select id="inputState" class="form-select">
-                                <option selected>Choose...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <label for="inputZip" class="form-label">Zip</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-                        <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                </label>
+                            <label class="form-label">Permisos de Acceso</label>
+                            <div class="permissions-container">
+                                <!-- Gestión -->
+                                <div class="permission-group">
+                                    <h6><i class="bi bi-gear me-2"></i>Gestión</h6>
+                                    <div class="permission-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input menu-access" type="checkbox" value="users" id="permUsers">
+                                            <label class="form-check-label" for="permUsers">
+                                                Gestión de Usuarios
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="permission-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input menu-access" type="checkbox" value="roles" id="permRoles">
+                                            <label class="form-check-label" for="permRoles">
+                                                Gestión de Roles
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="permission-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input menu-access" type="checkbox" value="employees" id="permEmployees">
+                                            <label class="form-check-label" for="permEmployees">
+                                                Gestión de Empleados
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="permission-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input menu-access" type="checkbox" value="clients" id="permClients">
+                                            <label class="form-check-label" for="permClients">
+                                                Gestión de Clientes
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Servicios -->
+                                <div class="permission-group">
+                                    <h6><i class="bi bi-scissors me-2"></i>Servicios</h6>
+                                    <div class="permission-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input menu-access" type="checkbox" value="services" id="permServices">
+                                            <label class="form-check-label" for="permServices">
+                                                Gestión de Servicios
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="permission-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input menu-access" type="checkbox" value="appointments-services" id="permAppServices">
+                                            <label class="form-check-label" for="permAppServices">
+                                                Servicios de Citas
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Citas -->
+                                <div class="permission-group">
+                                    <h6><i class="bi bi-calendar-event me-2"></i>Citas</h6>
+                                    <div class="permission-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input menu-access" type="checkbox" value="appointment" id="permAppointment">
+                                            <label class="form-check-label" for="permAppointment">
+                                                Programación
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="permission-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input menu-access" type="checkbox" value="availability" id="permAvailability">
+                                            <label class="form-check-label" for="permAvailability">
+                                                Disponibilidad
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="permission-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input menu-access" type="checkbox" value="appointment2" id="permAppointment2">
+                                            <label class="form-check-label" for="permAppointment2">
+                                                Gestión de Citas
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Otros Módulos -->
+                                <div class="permission-group">
+                                    <h6><i class="bi bi-layers me-2"></i>Otros Módulos</h6>
+                                    <div class="permission-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input menu-access" type="checkbox" value="payments" id="permPayments">
+                                            <label class="form-check-label" for="permPayments">
+                                                Gestión de Pagos
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="permission-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input menu-access" type="checkbox" value="announces" id="permAnnounces">
+                                            <label class="form-check-label" for="permAnnounces">
+                                                Gestión de Anuncios
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="permission-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input menu-access" type="checkbox" value="reports" id="permReports">
+                                            <label class="form-check-label" for="permReports">
+                                                Reportes
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
+                            <div class="form-check form-switch mt-2">
+                                <input class="form-check-input" type="checkbox" id="isActive" name="isActive" checked>
+                                <label class="form-check-label" for="isActive">Rol Activo</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-success me-2 mt-2" id="submitBtn">Guardar Rol</button>
+                            <button type="button" class="btn btn-secondary mt-2" id="resetBtn">Limpiar Formulario</button>
                         </div>
                     </form>
                 </div>
@@ -209,13 +313,274 @@
             </div>
             <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.1);">
             <div class="text-center">
-                <p class="mb-0">&copy; Todos los derechos reservados.</p>
+                <p class="mb-0">&copy; 2023 Barbería Christopher. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Inicializar DataTable
+            var table = $('#rolesTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                responsive: true,
+                order: [[0, 'desc']]
+            });
 
+            // Datos de ejemplo basados en el JSON proporcionado
+            var rolesData = [
+                {
+                    roleId: 1,
+                    roleName: "Administrador",
+                    menuAccess: "users,roles,employees,clients,services,appointments-services,appointment,availability,appointment2,payments,announces,reports",
+                    isActive: true,
+                    newRoleId: 0,
+                    success: 1
+                },
+                {
+                    roleId: 2,
+                    roleName: "Barbero",
+                    menuAccess: "availability,appointment2,clients",
+                    isActive: true,
+                    newRoleId: 0,
+                    success: 1
+                },
+                {
+                    roleId: 3,
+                    roleName: "Recepcionista",
+                    menuAccess: "clients,appointment,availability,appointment2,payments",
+                    isActive: true,
+                    newRoleId: 0,
+                    success: 1
+                },
+                {
+                    roleId: 4,
+                    roleName: "Solo Lectura",
+                    menuAccess: "clients,services,appointment2,payments",
+                    isActive: false,
+                    newRoleId: 0,
+                    success: 1
+                }
+            ];
+
+            // Función para obtener icono según estado
+            function getStatusBadge(isActive) {
+                return isActive ? 
+                    '<span class="badge bg-success">Activo</span>' : 
+                    '<span class="badge bg-danger">Inactivo</span>';
+            }
+
+            // Función para formatear acceso a menús
+            function formatMenuAccess(menuAccess) {
+                const menus = menuAccess.split(',');
+                if (menus.length <= 3) {
+                    return menus.map(menu => `<span class="badge bg-primary me-1">${menu}</span>`).join('');
+                } else {
+                    return `<span class="badge bg-primary me-1">${menus[0]}</span>
+                            <span class="badge bg-primary me-1">${menus[1]}</span>
+                            <span class="badge bg-primary">+${menus.length - 2} más</span>`;
+                }
+            }
+
+            // Cargar datos en la tabla
+            function loadRolesData() {
+                table.clear();
+                rolesData.forEach(function(role) {
+                    var statusBadge = getStatusBadge(role.isActive);
+                    var menuAccessBadges = formatMenuAccess(role.menuAccess);
+                    
+                    var actionButtons = `
+                        <div class="action-buttons">
+                            <button class="btn btn-sm btn-outline-primary edit-role" data-id="${role.roleId}">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-role" data-id="${role.roleId}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info view-role" data-id="${role.roleId}">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    table.row.add([
+                        role.roleId,
+                        `<strong>${role.roleName}</strong>`,
+                        menuAccessBadges,
+                        statusBadge,
+                        actionButtons
+                    ]);
+                });
+                table.draw();
+            }
+
+            // Cargar datos iniciales
+            loadRolesData();
+
+            // Manejar envío del formulario
+            $('#roleForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Obtener permisos seleccionados
+                const selectedPermissions = [];
+                $('.menu-access:checked').each(function() {
+                    selectedPermissions.push($(this).val());
+                });
+                
+                // Obtener datos del formulario
+                var formData = {
+                    roleId: $('#roleId').val() ? parseInt($('#roleId').val()) : 0,
+                    roleName: $('#roleName').val(),
+                    menuAccess: selectedPermissions.join(','),
+                    isActive: $('#isActive').is(':checked'),
+                    newRoleId: 0,
+                    success: 1
+                };
+                
+                // Validaciones básicas
+                if (!formData.roleName) {
+                    alert('Por favor, ingrese el nombre del rol.');
+                    return;
+                }
+                
+                if (selectedPermissions.length === 0) {
+                    alert('Por favor, seleccione al menos un permiso de acceso.');
+                    return;
+                }
+                
+                // Si es un nuevo rol (roleId = 0), generar un nuevo ID
+                if (formData.roleId === 0) {
+                    formData.roleId = rolesData.length > 0 ? 
+                        Math.max(...rolesData.map(r => r.roleId)) + 1 : 1;
+                    rolesData.push(formData);
+                } else {
+                    // Actualizar rol existente
+                    var index = rolesData.findIndex(r => r.roleId === formData.roleId);
+                    if (index !== -1) {
+                        rolesData[index] = formData;
+                    }
+                }
+                
+                // Recargar la tabla
+                loadRolesData();
+                
+                // Resetear formulario
+                $('#roleForm')[0].reset();
+                $('#roleId').val('');
+                $('#submitBtn').text('Guardar Rol');
+                $('.menu-access').prop('checked', false);
+                $('#isActive').prop('checked', true);
+                
+                // Mostrar mensaje de éxito
+                alert('Rol guardado exitosamente');
+            });
+
+            // Manejar edición de rol
+            $(document).on('click', '.edit-role', function() {
+                var roleId = $(this).data('id');
+                var role = rolesData.find(r => r.roleId === roleId);
+                
+                if (role) {
+                    $('#roleId').val(role.roleId);
+                    $('#roleName').val(role.roleName);
+                    
+                    // Limpiar selecciones anteriores
+                    $('.menu-access').prop('checked', false);
+                    
+                    // Seleccionar permisos del rol
+                    const permissions = role.menuAccess.split(',');
+                    permissions.forEach(perm => {
+                        $(`.menu-access[value="${perm}"]`).prop('checked', true);
+                    });
+                    
+                    $('#isActive').prop('checked', role.isActive);
+                    $('#submitBtn').text('Actualizar Rol');
+                    
+                    // Desplazarse al formulario
+                    $('html, body').animate({
+                        scrollTop: $('#roleForm').offset().top - 100
+                    }, 500);
+                }
+            });
+
+            // Manejar visualización de rol
+            $(document).on('click', '.view-role', function() {
+                var roleId = $(this).data('id');
+                var role = rolesData.find(r => r.roleId === roleId);
+                
+                if (role) {
+                    const permissions = role.menuAccess.split(',');
+                    const permissionList = permissions.map(perm => 
+                        `<li>${perm}</li>`
+                    ).join('');
+                    
+                    const roleInfo = `
+                        <strong>ID:</strong> ${role.roleId}<br>
+                        <strong>Nombre:</strong> ${role.roleName}<br>
+                        <strong>Estado:</strong> ${role.isActive ? 'Activo' : 'Inactivo'}<br>
+                        <strong>Permisos:</strong><br>
+                        <ul>${permissionList}</ul>
+                    `;
+                    
+                    // En una implementación real, esto podría abrir un modal
+                    alert('Información del Rol:\n\n' + roleInfo);
+                }
+            });
+
+            // Manejar eliminación de rol
+            $(document).on('click', '.delete-role', function() {
+                var roleId = $(this).data('id');
+                
+                if (confirm('¿Está seguro de que desea eliminar este rol?')) {
+                    rolesData = rolesData.filter(r => r.roleId !== roleId);
+                    loadRolesData();
+                    alert('Rol eliminado exitosamente');
+                }
+            });
+
+            // Manejar botón de reset
+            $('#resetBtn').on('click', function() {
+                $('#roleForm')[0].reset();
+                $('#roleId').val('');
+                $('#submitBtn').text('Guardar Rol');
+                $('.menu-access').prop('checked', false);
+                $('#isActive').prop('checked', true);
+            });
+
+            // Botones de selección rápida
+            $(document).on('click', '.quick-select', function() {
+                const preset = $(this).data('preset');
+                $('.menu-access').prop('checked', false);
+                
+                switch(preset) {
+                    case 'all':
+                        $('.menu-access').prop('checked', true);
+                        break;
+                    case 'admin':
+                        $('.menu-access').prop('checked', true);
+                        break;
+                    case 'barber':
+                        $('#permAvailability, #permAppointment2, #permClients').prop('checked', true);
+                        break;
+                    case 'reception':
+                        $('#permClients, #permAppointment, #permAvailability, #permAppointment2, #permPayments').prop('checked', true);
+                        break;
+                    case 'none':
+                        $('.menu-access').prop('checked', false);
+                        break;
+                }
+            });
+        });
+    </script>
+</body>
 </html>

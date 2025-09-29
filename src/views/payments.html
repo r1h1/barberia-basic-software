@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbería Christopher - Sistema Administrativo</title>
+    <title>Barbería Christopher - Gestión de Pagos</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/common.css">
 </head>
 
@@ -26,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.html">
+                        <a class="nav-link active" href="dashboard.html">
                             <i class="bi bi-house-door me-1"></i>Inicio
                         </a>
                     </li>
@@ -58,7 +59,7 @@
                         <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
                             <li><a class="dropdown-item" href="services.html"><i
                                         class="bi bi-list-check me-2"></i>Servicios</a></li>
-                            <li><a class="dropdown-item" href="appoinments-services.html"><i
+                            <li><a class="dropdown-item" href="appointment-services.html"><i
                                         class="bi bi-calendar-check me-2"></i>Servicios de Citas</a></li>
                         </ul>
                     </li>
@@ -70,11 +71,11 @@
                             <i class="bi bi-calendar-event me-1"></i>Citas
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="citasDropdown">
-                            <li><a class="dropdown-item" href="appointment.html"><i
+                            <li><a class="dropdown-item" href="schedules.html"><i
                                         class="bi bi-clock me-2"></i>Programación</a></li>
                             <li><a class="dropdown-item" href="availability.html"><i
                                         class="bi bi-calendar2-check me-2"></i>Disponibilidad</a></li>
-                            <li><a class="dropdown-item" href="appointment2.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
+                            <li><a class="dropdown-item" href="appointments.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
                             </li>
                         </ul>
                     </li>
@@ -104,86 +105,111 @@
     <!-- Contenido principal -->
     <main class="container-fluid my-2">
         <div class="row">
-            <div class="col-6">
+            <div class="col-lg-8">
                 <div class="main-content">
-                    <h1 class="welcome-title">Métodos de Pago</h1>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h1 class="welcome-title">Registro de Pagos</h1>
+                    <div class="table-responsive">
+                        <table id="paymentsTable" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID Pago</th>
+                                    <th>Cliente</th>
+                                    <th>Cita</th>
+                                    <th>Tipo Pago</th>
+                                    <th>Monto</th>
+                                    <th>Fecha Pago</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Los datos se cargarán dinámicamente con JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-4">
                 <div class="main-content">
-                    <h1 class="welcome-title">Mantenimiento</h1>
-                    <form class="row g-3">
-                        <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputPassword4" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4">
-                        </div>
+                    <h1 class="welcome-title">Registrar Pago</h1>
+                    <form id="paymentForm" class="row g-3">
+                        <input type="hidden" id="paymentId" name="paymentId">
+                        
                         <div class="col-12">
-                            <label for="inputAddress" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                        </div>
-                        <div class="col-12">
-                            <label for="inputAddress2" class="form-label">Address 2</label>
-                            <input type="text" class="form-control" id="inputAddress2"
-                                placeholder="Apartment, studio, or floor">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputCity" class="form-label">City</label>
-                            <input type="text" class="form-control" id="inputCity">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="inputState" class="form-label">State</label>
-                            <select id="inputState" class="form-select">
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                            <label for="appointmentId" class="form-label">Cita</label>
+                            <select class="form-select" id="appointmentId" name="appointmentId" required>
+                                <option value="" selected disabled>Seleccione una cita</option>
+                                <option value="1">Cita #001 - Juan Pérez (20/10/2023 10:00)</option>
+                                <option value="2">Cita #002 - María García (20/10/2023 14:30)</option>
+                                <option value="3">Cita #003 - Carlos López (19/10/2023 16:00)</option>
+                                <option value="4">Cita #004 - Ana Rodríguez (21/10/2023 11:30)</option>
                             </select>
                         </div>
-                        <div class="col-md-2">
-                            <label for="inputZip" class="form-label">Zip</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
+                        
                         <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                </label>
+                            <label for="clientId" class="form-label">Cliente</label>
+                            <select class="form-select" id="clientId" name="clientId" required>
+                                <option value="" selected disabled>Seleccione un cliente</option>
+                                <option value="1">Juan Pérez</option>
+                                <option value="2">María García</option>
+                                <option value="3">Carlos López</option>
+                                <option value="4">Ana Rodríguez</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="paymentType" class="form-label">Tipo de Pago</label>
+                            <select class="form-select" id="paymentType" name="paymentType" required>
+                                <option value="" selected disabled>Seleccione tipo de pago</option>
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Tarjeta Débito">Tarjeta Débito</option>
+                                <option value="Tarjeta Crédito">Tarjeta Crédito</option>
+                                <option value="Transferencia">Transferencia Bancaria</option>
+                                <option value="Digital">Pago Digital</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12" id="authorizationField" style="display: none;">
+                            <label for="authorizationNumber" class="form-label">Número de Autorización</label>
+                            <input type="text" class="form-control" id="authorizationNumber" name="authorizationNumber">
+                        </div>
+                        
+                        <div class="col-12" id="transactionField" style="display: none;">
+                            <label for="transactionNumber" class="form-label">Número de Transacción</label>
+                            <input type="text" class="form-control" id="transactionNumber" name="transactionNumber">
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="totalAmount" class="form-label">Monto Total ($)</label>
+                            <input type="number" class="form-control" id="totalAmount" name="totalAmount" step="0.01" min="0" required>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="paymentDate" class="form-label">Fecha de Pago</label>
+                            <input type="datetime-local" class="form-control" id="paymentDate" name="paymentDate" required>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="status" class="form-label">Estado del Pago</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="Completado" selected>Completado</option>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Fallido">Fallido</option>
+                                <option value="Reembolsado">Reembolsado</option>
+                                <option value="En Proceso">En Proceso</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="form-check form-switch mt-2">
+                                <input class="form-check-input" type="checkbox" id="isActive" name="isActive" checked>
+                                <label class="form-check-label" for="isActive">Pago Activo</label>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-success me-2 mt-2" id="submitBtn">Registrar Pago</button>
+                            <button type="button" class="btn btn-secondary mt-2" id="resetBtn">Limpiar Formulario</button>
                         </div>
                     </form>
                 </div>
@@ -208,13 +234,361 @@
             </div>
             <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.1);">
             <div class="text-center">
-                <p class="mb-0">&copy; Todos los derechos reservados.</p>
+                <p class="mb-0">&copy; 2023 Barbería Christopher. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Inicializar DataTable
+            var table = $('#paymentsTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                responsive: true,
+                order: [[0, 'desc']]
+            });
 
+            // Datos de ejemplo basados en el JSON proporcionado
+            var paymentsData = [
+                {
+                    paymentId: 1,
+                    appointmentId: 1,
+                    clientId: 1,
+                    paymentType: "Efectivo",
+                    authorizationNumber: "",
+                    transactionNumber: "",
+                    totalAmount: 25.00,
+                    paymentDate: "2023-10-20T10:30:00.000Z",
+                    status: "Completado",
+                    isActive: true,
+                    appointmentDate: "2023-10-20T10:00:00.000Z",
+                    startTime: "10:00",
+                    endTime: "11:00",
+                    appointmentStatus: "Completada",
+                    clientName: "Juan Pérez",
+                    success: 1,
+                    message: "Pago registrado exitosamente"
+                },
+                {
+                    paymentId: 2,
+                    appointmentId: 2,
+                    clientId: 2,
+                    paymentType: "Tarjeta Crédito",
+                    authorizationNumber: "AUTH123456",
+                    transactionNumber: "TXN789012",
+                    totalAmount: 15.00,
+                    paymentDate: "2023-10-20T15:00:00.000Z",
+                    status: "Completado",
+                    isActive: true,
+                    appointmentDate: "2023-10-20T14:30:00.000Z",
+                    startTime: "14:30",
+                    endTime: "15:15",
+                    appointmentStatus: "Completada",
+                    clientName: "María García",
+                    success: 1,
+                    message: "Pago registrado exitosamente"
+                },
+                {
+                    paymentId: 3,
+                    appointmentId: 3,
+                    clientId: 3,
+                    paymentType: "Transferencia",
+                    authorizationNumber: "TRF456789",
+                    transactionNumber: "BANK987654",
+                    totalAmount: 45.00,
+                    paymentDate: "2023-10-19T17:30:00.000Z",
+                    status: "Pendiente",
+                    isActive: true,
+                    appointmentDate: "2023-10-19T16:00:00.000Z",
+                    startTime: "16:00",
+                    endTime: "17:00",
+                    appointmentStatus: "Completada",
+                    clientName: "Carlos López",
+                    success: 1,
+                    message: "Pago registrado exitosamente"
+                },
+                {
+                    paymentId: 4,
+                    appointmentId: 4,
+                    clientId: 4,
+                    paymentType: "Digital",
+                    authorizationNumber: "DIG123789",
+                    transactionNumber: "QR456123",
+                    totalAmount: 18.00,
+                    paymentDate: "2023-10-21T12:00:00.000Z",
+                    status: "Fallido",
+                    isActive: false,
+                    appointmentDate: "2023-10-21T11:30:00.000Z",
+                    startTime: "11:30",
+                    endTime: "12:00",
+                    appointmentStatus: "Completada",
+                    clientName: "Ana Rodríguez",
+                    success: 1,
+                    message: "Pago registrado exitosamente"
+                }
+            ];
+
+            // Función para formatear fecha
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+
+            // Función para formatear moneda
+            function formatCurrency(amount) {
+                return '$' + parseFloat(amount).toFixed(2);
+            }
+
+            // Función para obtener icono según tipo de pago
+            function getPaymentTypeIcon(paymentType) {
+                const icons = {
+                    'Efectivo': 'bi-cash',
+                    'Tarjeta Débito': 'bi-credit-card',
+                    'Tarjeta Crédito': 'bi-credit-card-2-front',
+                    'Transferencia': 'bi-bank',
+                    'Digital': 'bi-phone'
+                };
+                return icons[paymentType] || 'bi-currency-dollar';
+            }
+
+            // Función para obtener badge según estado
+            function getStatusBadge(status) {
+                const statusClasses = {
+                    'Completado': 'bg-success',
+                    'Pendiente': 'bg-warning',
+                    'Fallido': 'bg-danger',
+                    'Reembolsado': 'bg-info',
+                    'En Proceso': 'bg-primary'
+                };
+                return `<span class="badge ${statusClasses[status] || 'bg-secondary'}">${status}</span>`;
+            }
+
+            // Mostrar/ocultar campos según tipo de pago
+            $('#paymentType').on('change', function() {
+                const paymentType = $(this).val();
+                const showAuthFields = paymentType !== 'Efectivo';
+                
+                if (showAuthFields) {
+                    $('#authorizationField').show();
+                    $('#transactionField').show();
+                    $('#authorizationNumber').prop('required', true);
+                    $('#transactionNumber').prop('required', true);
+                } else {
+                    $('#authorizationField').hide();
+                    $('#transactionField').hide();
+                    $('#authorizationNumber').prop('required', false);
+                    $('#transactionNumber').prop('required', false);
+                }
+            });
+
+            // Cargar datos en la tabla
+            function loadPaymentsData() {
+                table.clear();
+                paymentsData.forEach(function(payment) {
+                    var statusBadge = getStatusBadge(payment.status);
+                    var paymentIcon = `<i class="bi ${getPaymentTypeIcon(payment.paymentType)} me-1"></i>`;
+                    
+                    var actionButtons = `
+                        <div class="action-buttons">
+                            <button class="btn btn-sm btn-outline-primary edit-payment" data-id="${payment.paymentId}">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-payment" data-id="${payment.paymentId}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info view-payment" data-id="${payment.paymentId}">
+                                <i class="bi bi-receipt"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    table.row.add([
+                        payment.paymentId,
+                        payment.clientName,
+                        formatDate(payment.appointmentDate) + ' ' + payment.startTime,
+                        paymentIcon + ' ' + payment.paymentType,
+                        formatCurrency(payment.totalAmount),
+                        formatDate(payment.paymentDate),
+                        statusBadge,
+                        actionButtons
+                    ]);
+                });
+                table.draw();
+            }
+
+            // Cargar datos iniciales
+            loadPaymentsData();
+
+            // Manejar envío del formulario
+            $('#paymentForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Obtener datos del formulario
+                var formData = {
+                    paymentId: $('#paymentId').val() ? parseInt($('#paymentId').val()) : 0,
+                    appointmentId: parseInt($('#appointmentId').val()),
+                    clientId: parseInt($('#clientId').val()),
+                    paymentType: $('#paymentType').val(),
+                    authorizationNumber: $('#authorizationNumber').val() || "",
+                    transactionNumber: $('#transactionNumber').val() || "",
+                    totalAmount: parseFloat($('#totalAmount').val()),
+                    paymentDate: $('#paymentDate').val() ? new Date($('#paymentDate').val()).toISOString() : new Date().toISOString(),
+                    status: $('#status').val(),
+                    isActive: $('#isActive').is(':checked'),
+                    clientName: $('#clientId option:selected').text(),
+                    success: 1,
+                    message: "Pago registrado exitosamente"
+                };
+                
+                // Validaciones básicas
+                if (!formData.appointmentId || !formData.clientId || !formData.paymentType || !formData.totalAmount || !formData.status) {
+                    alert('Por favor, complete todos los campos obligatorios.');
+                    return;
+                }
+                
+                if (formData.totalAmount <= 0) {
+                    alert('El monto debe ser mayor a 0.');
+                    return;
+                }
+                
+                // Si es un nuevo pago (paymentId = 0), generar un nuevo ID
+                if (formData.paymentId === 0) {
+                    formData.paymentId = paymentsData.length > 0 ? 
+                        Math.max(...paymentsData.map(p => p.paymentId)) + 1 : 1;
+                    paymentsData.push(formData);
+                } else {
+                    // Actualizar pago existente
+                    var index = paymentsData.findIndex(p => p.paymentId === formData.paymentId);
+                    if (index !== -1) {
+                        paymentsData[index] = formData;
+                    }
+                }
+                
+                // Recargar la tabla
+                loadPaymentsData();
+                
+                // Resetear formulario
+                $('#paymentForm')[0].reset();
+                $('#paymentId').val('');
+                $('#submitBtn').text('Registrar Pago');
+                $('#authorizationField').hide();
+                $('#transactionField').hide();
+                
+                // Establecer fecha y hora actual por defecto
+                const now = new Date();
+                const localDateTime = now.toISOString().slice(0, 16);
+                $('#paymentDate').val(localDateTime);
+                
+                // Mostrar mensaje de éxito
+                alert('Pago registrado exitosamente');
+            });
+
+            // Manejar edición de pago
+            $(document).on('click', '.edit-payment', function() {
+                var paymentId = $(this).data('id');
+                var payment = paymentsData.find(p => p.paymentId === paymentId);
+                
+                if (payment) {
+                    $('#paymentId').val(payment.paymentId);
+                    $('#appointmentId').val(payment.appointmentId);
+                    $('#clientId').val(payment.clientId);
+                    $('#paymentType').val(payment.paymentType);
+                    $('#authorizationNumber').val(payment.authorizationNumber);
+                    $('#transactionNumber').val(payment.transactionNumber);
+                    $('#totalAmount').val(payment.totalAmount);
+                    
+                    // Formatear fecha para el input datetime-local
+                    const date = new Date(payment.paymentDate);
+                    const localDateTime = date.toISOString().slice(0, 16);
+                    $('#paymentDate').val(localDateTime);
+                    
+                    $('#status').val(payment.status);
+                    $('#isActive').prop('checked', payment.isActive);
+                    $('#submitBtn').text('Actualizar Pago');
+                    
+                    // Mostrar campos de autorización si es necesario
+                    if (payment.paymentType !== 'Efectivo') {
+                        $('#authorizationField').show();
+                        $('#transactionField').show();
+                    }
+                    
+                    // Desplazarse al formulario
+                    $('html, body').animate({
+                        scrollTop: $('#paymentForm').offset().top - 100
+                    }, 500);
+                }
+            });
+
+            // Manejar visualización de pago
+            $(document).on('click', '.view-payment', function() {
+                var paymentId = $(this).data('id');
+                var payment = paymentsData.find(p => p.paymentId === paymentId);
+                
+                if (payment) {
+                    const paymentInfo = `
+                        <strong>ID Pago:</strong> ${payment.paymentId}<br>
+                        <strong>Cliente:</strong> ${payment.clientName}<br>
+                        <strong>Cita:</strong> ${formatDate(payment.appointmentDate)} ${payment.startTime}<br>
+                        <strong>Tipo Pago:</strong> ${payment.paymentType}<br>
+                        <strong>Monto:</strong> ${formatCurrency(payment.totalAmount)}<br>
+                        <strong>Fecha Pago:</strong> ${formatDate(payment.paymentDate)}<br>
+                        <strong>Estado:</strong> ${payment.status}<br>
+                        ${payment.authorizationNumber ? `<strong>Autorización:</strong> ${payment.authorizationNumber}<br>` : ''}
+                        ${payment.transactionNumber ? `<strong>Transacción:</strong> ${payment.transactionNumber}<br>` : ''}
+                        <strong>Activo:</strong> ${payment.isActive ? 'Sí' : 'No'}
+                    `;
+                    
+                    // En una implementación real, esto podría abrir un modal
+                    alert('Detalles del Pago:\n\n' + paymentInfo);
+                }
+            });
+
+            // Manejar eliminación de pago
+            $(document).on('click', '.delete-payment', function() {
+                var paymentId = $(this).data('id');
+                
+                if (confirm('¿Está seguro de que desea eliminar este registro de pago?')) {
+                    paymentsData = paymentsData.filter(p => p.paymentId !== paymentId);
+                    loadPaymentsData();
+                    alert('Pago eliminado exitosamente');
+                }
+            });
+
+            // Manejar botón de reset
+            $('#resetBtn').on('click', function() {
+                $('#paymentForm')[0].reset();
+                $('#paymentId').val('');
+                $('#submitBtn').text('Registrar Pago');
+                $('#authorizationField').hide();
+                $('#transactionField').hide();
+                
+                // Establecer fecha y hora actual por defecto
+                const now = new Date();
+                const localDateTime = now.toISOString().slice(0, 16);
+                $('#paymentDate').val(localDateTime);
+            });
+
+            // Establecer fecha y hora actual por defecto
+            const now = new Date();
+            const localDateTime = now.toISOString().slice(0, 16);
+            $('#paymentDate').val(localDateTime);
+        });
+    </script>
+</body>
 </html>

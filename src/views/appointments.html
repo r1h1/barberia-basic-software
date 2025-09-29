@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbería Christopher - Sistema Administrativo</title>
+    <title>Barbería Christopher - Gestión de Citas</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/common.css">
 </head>
 
@@ -26,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.html">
+                        <a class="nav-link active" href="dashboard.html">
                             <i class="bi bi-house-door me-1"></i>Inicio
                         </a>
                     </li>
@@ -58,7 +59,7 @@
                         <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
                             <li><a class="dropdown-item" href="services.html"><i
                                         class="bi bi-list-check me-2"></i>Servicios</a></li>
-                            <li><a class="dropdown-item" href="appoinments-services.html"><i
+                            <li><a class="dropdown-item" href="appointment-services.html"><i
                                         class="bi bi-calendar-check me-2"></i>Servicios de Citas</a></li>
                         </ul>
                     </li>
@@ -70,11 +71,11 @@
                             <i class="bi bi-calendar-event me-1"></i>Citas
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="citasDropdown">
-                            <li><a class="dropdown-item" href="appointment.html"><i
+                            <li><a class="dropdown-item" href="schedules.html"><i
                                         class="bi bi-clock me-2"></i>Programación</a></li>
                             <li><a class="dropdown-item" href="availability.html"><i
                                         class="bi bi-calendar2-check me-2"></i>Disponibilidad</a></li>
-                            <li><a class="dropdown-item" href="appointment2.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
+                            <li><a class="dropdown-item" href="appointments.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
                             </li>
                         </ul>
                     </li>
@@ -104,38 +105,121 @@
     <!-- Contenido principal -->
     <main class="container-fluid my-2">
         <div class="row">
-            <div class="col-12">
+            <div class="col-lg-8">
                 <div class="main-content">
                     <h1 class="welcome-title">Citas Programadas</h1>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table id="appointmentsTable" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Barbero</th>
+                                    <th>Fecha</th>
+                                    <th>Hora Inicio</th>
+                                    <th>Duración</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Los datos se cargarán dinámicamente con JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="main-content">
+                    <h1 class="welcome-title">Mantenimiento de Citas</h1>
+                    <form id="appointmentForm" class="row g-3">
+                        <input type="hidden" id="appointmentId" name="appointmentId">
+                        
+                        <div class="col-12">
+                            <label for="clientId" class="form-label">Cliente</label>
+                            <select class="form-select" id="clientId" name="clientId" required>
+                                <option value="" selected disabled>Seleccione un cliente</option>
+                                <option value="1">Juan Pérez</option>
+                                <option value="2">María García</option>
+                                <option value="3">Carlos López</option>
+                                <option value="4">Ana Rodríguez</option>
+                                <option value="5">Pedro Martínez</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="employeeId" class="form-label">Barbero</label>
+                            <select class="form-select" id="employeeId" name="employeeId" required>
+                                <option value="" selected disabled>Seleccione un barbero</option>
+                                <option value="1">Roberto Silva</option>
+                                <option value="2">Laura Mendoza</option>
+                                <option value="3">Miguel Torres</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="date" class="form-label">Fecha</label>
+                            <input type="date" class="form-control" id="date" name="date" required>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="startTime" class="form-label">Hora de Inicio</label>
+                            <input type="time" class="form-control" id="startTime" name="startTime" required>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="durationMin" class="form-label">Duración (minutos)</label>
+                            <select class="form-select" id="durationMin" name="durationMin" required>
+                                <option value="30">30 minutos</option>
+                                <option value="45">45 minutos</option>
+                                <option value="60" selected>60 minutos</option>
+                                <option value="90">90 minutos</option>
+                                <option value="120">120 minutos</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="serviceName" class="form-label">Servicio</label>
+                            <select class="form-select" id="serviceName" name="serviceName" required>
+                                <option value="" selected disabled>Seleccione un servicio</option>
+                                <option value="Corte de Cabello">Corte de Cabello</option>
+                                <option value="Arreglo de Barba">Arreglo de Barba</option>
+                                <option value="Corte y Barba">Corte y Barba</option>
+                                <option value="Afeitado Clásico">Afeitado Clásico</option>
+                                <option value="Tratamiento Facial">Tratamiento Facial</option>
+                                <option value="Paquete Completo">Paquete Completo</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="status" class="form-label">Estado</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="Programada" selected>Programada</option>
+                                <option value="Confirmada">Confirmada</option>
+                                <option value="En Progreso">En Progreso</option>
+                                <option value="Completada">Completada</option>
+                                <option value="Cancelada">Cancelada</option>
+                                <option value="No Presentado">No Presentado</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="notes" class="form-label">Notas</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Notas adicionales..."></textarea>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="form-check form-switch mt-2">
+                                <input class="form-check-input" type="checkbox" id="isActive" name="isActive" checked>
+                                <label class="form-check-label" for="isActive">Cita Activa</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-success me-2 mt-2" id="submitBtn">Guardar Cita</button>
+                            <button type="button" class="btn btn-secondary mt-2" id="resetBtn">Limpiar Formulario</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -158,13 +242,297 @@
             </div>
             <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.1);">
             <div class="text-center">
-                <p class="mb-0">&copy; Todos los derechos reservados.</p>
+                <p class="mb-0">&copy; 2023 Barbería Christopher. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Inicializar DataTable
+            var table = $('#appointmentsTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                responsive: true,
+                order: [[0, 'desc']]
+            });
 
+            // Datos de ejemplo basados en el JSON proporcionado
+            var appointmentsData = [
+                {
+                    appointmentId: 1,
+                    clientId: 1,
+                    employeeId: 1,
+                    date: "2023-10-20",
+                    startTime: "10:00",
+                    endTime: "11:00",
+                    notes: "Cliente preferente",
+                    status: "Confirmada",
+                    isActive: true,
+                    clientName: "Juan Pérez",
+                    employeeName: "Roberto Silva",
+                    serviceName: "Corte y Barba",
+                    durationMin: 60,
+                    success: 1,
+                    message: "Cita creada exitosamente"
+                },
+                {
+                    appointmentId: 2,
+                    clientId: 2,
+                    employeeId: 2,
+                    date: "2023-10-20",
+                    startTime: "14:30",
+                    endTime: "15:15",
+                    notes: "Primera visita",
+                    status: "Programada",
+                    isActive: true,
+                    clientName: "María García",
+                    employeeName: "Laura Mendoza",
+                    serviceName: "Corte de Cabello",
+                    durationMin: 45,
+                    success: 1,
+                    message: "Cita creada exitosamente"
+                },
+                {
+                    appointmentId: 3,
+                    clientId: 3,
+                    employeeId: 3,
+                    date: "2023-10-19",
+                    startTime: "16:00",
+                    endTime: "17:00",
+                    notes: "",
+                    status: "Completada",
+                    isActive: true,
+                    clientName: "Carlos López",
+                    employeeName: "Miguel Torres",
+                    serviceName: "Paquete Completo",
+                    durationMin: 60,
+                    success: 1,
+                    message: "Cita creada exitosamente"
+                },
+                {
+                    appointmentId: 4,
+                    clientId: 4,
+                    employeeId: 1,
+                    date: "2023-10-21",
+                    startTime: "11:30",
+                    endTime: "12:00",
+                    notes: "Cancelar si no confirma",
+                    status: "Cancelada",
+                    isActive: false,
+                    clientName: "Ana Rodríguez",
+                    employeeName: "Roberto Silva",
+                    serviceName: "Afeitado Clásico",
+                    durationMin: 30,
+                    success: 1,
+                    message: "Cita creada exitosamente"
+                }
+            ];
+
+            // Función para formatear fecha
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                });
+            }
+
+            // Función para calcular hora de fin
+            function calculateEndTime(startTime, durationMin) {
+                const [hours, minutes] = startTime.split(':').map(Number);
+                const startDate = new Date();
+                startDate.setHours(hours, minutes, 0, 0);
+                const endDate = new Date(startDate.getTime() + durationMin * 60000);
+                return endDate.toTimeString().slice(0, 5);
+            }
+
+            // Función para obtener badge según estado
+            function getStatusBadge(status) {
+                const statusClasses = {
+                    'Programada': 'bg-secondary',
+                    'Confirmada': 'bg-primary',
+                    'En Progreso': 'bg-warning',
+                    'Completada': 'bg-success',
+                    'Cancelada': 'bg-danger',
+                    'No Presentado': 'bg-dark'
+                };
+                return `<span class="badge ${statusClasses[status] || 'bg-secondary'}">${status}</span>`;
+            }
+
+            // Cargar datos en la tabla
+            function loadAppointmentsData() {
+                table.clear();
+                appointmentsData.forEach(function(appointment) {
+                    var statusBadge = getStatusBadge(appointment.status);
+                    
+                    var actionButtons = `
+                        <div class="action-buttons">
+                            <button class="btn btn-sm btn-outline-primary edit-appointment" data-id="${appointment.appointmentId}">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-appointment" data-id="${appointment.appointmentId}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    table.row.add([
+                        appointment.appointmentId,
+                        appointment.clientName,
+                        appointment.employeeName,
+                        formatDate(appointment.date),
+                        appointment.startTime,
+                        appointment.durationMin + ' min',
+                        statusBadge,
+                        actionButtons
+                    ]);
+                });
+                table.draw();
+            }
+
+            // Cargar datos iniciales
+            loadAppointmentsData();
+
+            // Manejar envío del formulario
+            $('#appointmentForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Calcular hora de fin
+                const endTime = calculateEndTime($('#startTime').val(), parseInt($('#durationMin').val()));
+                
+                // Obtener datos del formulario
+                var formData = {
+                    appointmentId: $('#appointmentId').val() ? parseInt($('#appointmentId').val()) : 0,
+                    clientId: parseInt($('#clientId').val()),
+                    employeeId: parseInt($('#employeeId').val()),
+                    date: $('#date').val(),
+                    startTime: $('#startTime').val(),
+                    endTime: endTime,
+                    notes: $('#notes').val(),
+                    status: $('#status').val(),
+                    isActive: $('#isActive').is(':checked'),
+                    clientName: $('#clientId option:selected').text(),
+                    employeeName: $('#employeeId option:selected').text(),
+                    serviceName: $('#serviceName').val(),
+                    durationMin: parseInt($('#durationMin').val()),
+                    success: 1,
+                    message: "Cita guardada exitosamente"
+                };
+                
+                // Validaciones básicas
+                if (!formData.clientId || !formData.employeeId || !formData.date || !formData.startTime || !formData.serviceName) {
+                    alert('Por favor, complete todos los campos obligatorios.');
+                    return;
+                }
+                
+                // Validar fecha futura
+                const selectedDate = new Date(formData.date);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                if (selectedDate < today) {
+                    alert('No puede programar citas en fechas pasadas.');
+                    return;
+                }
+                
+                // Si es una nueva cita (appointmentId = 0), generar un nuevo ID
+                if (formData.appointmentId === 0) {
+                    formData.appointmentId = appointmentsData.length > 0 ? 
+                        Math.max(...appointmentsData.map(a => a.appointmentId)) + 1 : 1;
+                    appointmentsData.push(formData);
+                } else {
+                    // Actualizar cita existente
+                    var index = appointmentsData.findIndex(a => a.appointmentId === formData.appointmentId);
+                    if (index !== -1) {
+                        appointmentsData[index] = formData;
+                    }
+                }
+                
+                // Recargar la tabla
+                loadAppointmentsData();
+                
+                // Resetear formulario
+                $('#appointmentForm')[0].reset();
+                $('#appointmentId').val('');
+                $('#submitBtn').text('Guardar Cita');
+                
+                // Establecer fecha mínima como hoy
+                const todayFormatted = new Date().toISOString().split('T')[0];
+                $('#date').attr('min', todayFormatted);
+                $('#date').val(todayFormatted);
+                
+                // Mostrar mensaje de éxito
+                alert(formData.message);
+            });
+
+            // Manejar edición de cita
+            $(document).on('click', '.edit-appointment', function() {
+                var appointmentId = $(this).data('id');
+                var appointment = appointmentsData.find(a => a.appointmentId === appointmentId);
+                
+                if (appointment) {
+                    $('#appointmentId').val(appointment.appointmentId);
+                    $('#clientId').val(appointment.clientId);
+                    $('#employeeId').val(appointment.employeeId);
+                    $('#date').val(appointment.date);
+                    $('#startTime').val(appointment.startTime);
+                    $('#durationMin').val(appointment.durationMin);
+                    $('#serviceName').val(appointment.serviceName);
+                    $('#status').val(appointment.status);
+                    $('#notes').val(appointment.notes);
+                    $('#isActive').prop('checked', appointment.isActive);
+                    $('#submitBtn').text('Actualizar Cita');
+                    
+                    // Desplazarse al formulario
+                    $('html, body').animate({
+                        scrollTop: $('#appointmentForm').offset().top - 100
+                    }, 500);
+                }
+            });
+
+            // Manejar eliminación de cita
+            $(document).on('click', '.delete-appointment', function() {
+                var appointmentId = $(this).data('id');
+                
+                if (confirm('¿Está seguro de que desea eliminar esta cita?')) {
+                    appointmentsData = appointmentsData.filter(a => a.appointmentId !== appointmentId);
+                    loadAppointmentsData();
+                    alert('Cita eliminada exitosamente');
+                }
+            });
+
+            // Manejar botón de reset
+            $('#resetBtn').on('click', function() {
+                $('#appointmentForm')[0].reset();
+                $('#appointmentId').val('');
+                $('#submitBtn').text('Guardar Cita');
+                
+                // Establecer fecha mínima como hoy
+                const todayFormatted = new Date().toISOString().split('T')[0];
+                $('#date').attr('min', todayFormatted);
+                $('#date').val(todayFormatted);
+            });
+
+            // Establecer fecha mínima como hoy
+            const todayFormatted = new Date().toISOString().split('T')[0];
+            $('#date').attr('min', todayFormatted);
+            $('#date').val(todayFormatted);
+            
+            // Establecer hora por defecto (próxima hora en punto)
+            const nextHour = new Date();
+            nextHour.setHours(nextHour.getHours() + 1, 0, 0, 0);
+            $('#startTime').val(nextHour.toTimeString().slice(0, 5));
+        });
+    </script>
+</body>
 </html>

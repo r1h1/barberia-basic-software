@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbería Christopher - Sistema Administrativo</title>
+    <title>Barbería Christopher - Disponibilidad</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/common.css">
 </head>
 
@@ -26,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.html">
+                        <a class="nav-link active" href="dashboard.html">
                             <i class="bi bi-house-door me-1"></i>Inicio
                         </a>
                     </li>
@@ -40,8 +41,7 @@
                         <ul class="dropdown-menu" aria-labelledby="gestionDropdown">
                             <li><a class="dropdown-item" href="users.html"><i class="bi bi-people me-2"></i>Usuarios</a>
                             </li>
-                            <li><a class="dropdown-item" href="roles.html"><i
-                                        class="bi bi-person-badge me-2"></i>Roles</a>
+                            <li><a class="dropdown-item" href="roles.html"><i class="bi bi-person-badge me-2"></i>Roles</a>
                             </li>
                             <li><a class="dropdown-item" href="employees.html"><i
                                         class="bi bi-person-video me-2"></i>Empleados</a></li>
@@ -59,7 +59,7 @@
                         <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
                             <li><a class="dropdown-item" href="services.html"><i
                                         class="bi bi-list-check me-2"></i>Servicios</a></li>
-                            <li><a class="dropdown-item" href="appoinments-services.html"><i
+                            <li><a class="dropdown-item" href="appointment-services.html"><i
                                         class="bi bi-calendar-check me-2"></i>Servicios de Citas</a></li>
                         </ul>
                     </li>
@@ -71,12 +71,11 @@
                             <i class="bi bi-calendar-event me-1"></i>Citas
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="citasDropdown">
-                            <li><a class="dropdown-item" href="appointment.html"><i
+                            <li><a class="dropdown-item" href="schedules.html"><i
                                         class="bi bi-clock me-2"></i>Programación</a></li>
                             <li><a class="dropdown-item" href="availability.html"><i
                                         class="bi bi-calendar2-check me-2"></i>Disponibilidad</a></li>
-                            <li><a class="dropdown-item" href="appointment2.html"><i
-                                        class="bi bi-calendar-plus me-2"></i>Citas</a>
+                            <li><a class="dropdown-item" href="appointments.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
                             </li>
                         </ul>
                     </li>
@@ -102,42 +101,142 @@
             </div>
         </div>
     </nav>
-
+    
     <!-- Contenido principal -->
     <main class="container-fluid my-2">
         <div class="row">
-            <div class="col-12">
+            <!-- Panel de Búsqueda y Filtros -->
+            <div class="col-lg-4">
                 <div class="main-content">
-                    <h1 class="welcome-title">Disponiblidad de Citas</h1>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h1 class="welcome-title">Consultar Disponibilidad</h1>
+                    
+                    <!-- Búsqueda Rápida -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-lightning-charge me-2"></i>Búsqueda Rápida
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="quickAvailabilityForm">
+                                <div class="mb-3">
+                                    <label for="quickService" class="form-label">Servicio</label>
+                                    <select class="form-select" id="quickService" required>
+                                        <option value="" selected disabled>Seleccione un servicio</option>
+                                        <option value="1">Corte de Cabello (30 min)</option>
+                                        <option value="2">Arreglo de Barba (30 min)</option>
+                                        <option value="3">Corte y Barba (60 min)</option>
+                                        <option value="4">Afeitado Clásico (30 min)</option>
+                                        <option value="5">Tratamiento Facial (45 min)</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="quickDate" class="form-label">Fecha</label>
+                                    <input type="date" class="form-control" id="quickDate" required>
+                                </div>
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="bi bi-search me-2"></i>Buscar Disponibilidad
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Filtros Avanzados -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-funnel me-2"></i>Filtros Avanzados
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="availabilityForm">
+                                <div class="mb-3">
+                                    <label for="employeeSelect" class="form-label">Barbero</label>
+                                    <select class="form-select" id="employeeSelect">
+                                        <option value="" selected>Todos los barberos</option>
+                                        <option value="1">Roberto Silva</option>
+                                        <option value="2">Laura Mendoza</option>
+                                        <option value="3">Miguel Torres</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="dateRange" class="form-label">Rango de Fechas</label>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" id="startDate">
+                                        <span class="input-group-text">a</span>
+                                        <input type="date" class="form-control" id="endDate">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="timeSlot" class="form-label">Horario Preferido</label>
+                                    <select class="form-select" id="timeSlot">
+                                        <option value="" selected>Cualquier horario</option>
+                                        <option value="morning">Mañana (8:00 - 12:00)</option>
+                                        <option value="afternoon">Tarde (12:00 - 17:00)</option>
+                                        <option value="evening">Noche (17:00 - 20:00)</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="bi bi-filter me-2"></i>Aplicar Filtros
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resultados y Calendario -->
+            <div class="col-lg-8">
+                <!-- Información de Barberos Disponibles -->
+                <div class="main-content mb-4">
+                    <h2 class="welcome-title">Barberos Disponibles</h2>
+                    <div class="row" id="employeesContainer">
+                        <!-- Los empleados se cargarán dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Calendario de Disponibilidad -->
+                <div class="main-content">
+                    <h2 class="welcome-title">Horarios Disponibles</h2>
+                    <div class="availability-calendar">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h4 id="currentDateDisplay">Hoy</h4>
+                            <div>
+                                <button class="btn btn-outline-secondary btn-sm" id="prevDay">
+                                    <i class="bi bi-chevron-left"></i>
+                                </button>
+                                <button class="btn btn-outline-secondary btn-sm" id="nextDay">
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="row" id="timeSlotsContainer">
+                            <!-- Los horarios se cargarán dinámicamente -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Citas del Barbero Seleccionado -->
+                <div class="main-content mt-4">
+                    <h2 class="welcome-title">Citas Programadas</h2>
+                    <div class="table-responsive">
+                        <table id="appointmentsTable" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Servicio</th>
+                                    <th>Duración</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Los datos se cargarán dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -160,13 +259,296 @@
             </div>
             <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.1);">
             <div class="text-center">
-                <p class="mb-0">&copy; Todos los derechos reservados.</p>
+                <p class="mb-0">&copy; 2023 Barbería Christopher. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Variables globales
+            let selectedEmployee = null;
+            let selectedDate = new Date();
+            let selectedTimeSlot = null;
 
+            // Inicializar DataTable
+            const appointmentsTable = $('#appointmentsTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                responsive: true,
+                order: [[1, 'desc'], [2, 'asc']]
+            });
+
+            // Datos de ejemplo
+            const employeesData = [
+                {
+                    employeeId: 1,
+                    name: "Roberto Silva",
+                    specialty: "Cortes Clásicos y Barbas",
+                    rating: 4.8,
+                    availableSlots: ["09:00", "10:30", "14:00", "15:30", "17:00"]
+                },
+                {
+                    employeeId: 2,
+                    name: "Laura Mendoza",
+                    specialty: "Estilos Modernos y Color",
+                    rating: 4.9,
+                    availableSlots: ["08:30", "11:00", "13:30", "16:00", "18:30"]
+                },
+                {
+                    employeeId: 3,
+                    name: "Miguel Torres",
+                    specialty: "Afeitado Clásico y Tratamientos",
+                    rating: 4.7,
+                    availableSlots: ["10:00", "12:30", "15:00", "17:30"]
+                }
+            ];
+
+            const appointmentsData = [
+                {
+                    appointmentId: 1,
+                    clientName: "Juan Pérez",
+                    date: "2023-10-20",
+                    startTime: "10:00",
+                    serviceName: "Corte y Barba",
+                    durationMin: 60,
+                    status: "Confirmada",
+                    employeeId: 1
+                },
+                {
+                    appointmentId: 2,
+                    clientName: "María García",
+                    date: "2023-10-20",
+                    startTime: "14:30",
+                    serviceName: "Corte de Cabello",
+                    durationMin: 45,
+                    status: "Programada",
+                    employeeId: 2
+                },
+                {
+                    appointmentId: 3,
+                    clientName: "Carlos López",
+                    date: "2023-10-20",
+                    startTime: "16:00",
+                    serviceName: "Tratamiento Facial",
+                    durationMin: 45,
+                    status: "Confirmada",
+                    employeeId: 3
+                }
+            ];
+
+            // Función para formatear fecha
+            function formatDate(date) {
+                return date.toLocaleDateString('es-ES', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            }
+
+            // Función para generar horarios del día
+            function generateTimeSlots() {
+                const slots = [];
+                const startHour = 8; // 8:00 AM
+                const endHour = 20; // 8:00 PM
+                
+                for (let hour = startHour; hour < endHour; hour++) {
+                    for (let minute = 0; minute < 60; minute += 30) {
+                        const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                        slots.push(timeString);
+                    }
+                }
+                return slots;
+            }
+
+            // Cargar empleados
+            function loadEmployees() {
+                const container = $('#employeesContainer');
+                container.empty();
+                
+                employeesData.forEach(employee => {
+                    const employeeCard = `
+                        <div class="col-md-4 mb-3">
+                            <div class="card employee-card ${selectedEmployee === employee.employeeId ? 'selected' : ''}" 
+                                 data-employee-id="${employee.employeeId}">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">${employee.name}</h5>
+                                    <p class="card-text text-muted small">${employee.specialty}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.append(employeeCard);
+                });
+            }
+
+            // Cargar horarios disponibles
+            function loadTimeSlots() {
+                const container = $('#timeSlotsContainer');
+                const dateDisplay = $('#currentDateDisplay');
+                
+                // Actualizar display de fecha
+                dateDisplay.text(formatDate(selectedDate));
+                
+                container.empty();
+                
+                const timeSlots = generateTimeSlots();
+                const selectedEmployeeData = employeesData.find(emp => emp.employeeId === selectedEmployee);
+                const bookedSlots = appointmentsData
+                    .filter(apt => apt.employeeId === selectedEmployee && apt.date === selectedDate.toISOString().split('T')[0])
+                    .map(apt => apt.startTime);
+
+                timeSlots.forEach(slot => {
+                    const isAvailable = selectedEmployeeData && 
+                                      selectedEmployeeData.availableSlots.includes(slot) && 
+                                      !bookedSlots.includes(slot);
+                    const isSelected = selectedTimeSlot === slot;
+                    
+                    const slotElement = `
+                        <div class="col-6 col-md-4 col-lg-3 mb-2">
+                            <div class="time-slot ${isAvailable ? 'available' : 'booked'} ${isSelected ? 'selected' : ''}" 
+                                 data-time="${slot}" ${isAvailable ? '' : 'style="opacity: 0.5;"'}>
+                                <div class="text-center">
+                                    <div class="fw-bold">${slot}</div>
+                                    <small>${isAvailable ? 'Disponible' : 'Ocupado'}</small>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.append(slotElement);
+                });
+            }
+
+            // Cargar citas del barbero seleccionado
+            function loadEmployeeAppointments() {
+                appointmentsTable.clear();
+                
+                if (!selectedEmployee) return;
+                
+                const employeeAppointments = appointmentsData.filter(apt => apt.employeeId === selectedEmployee);
+                
+                employeeAppointments.forEach(apt => {
+                    const statusBadge = apt.status === 'Confirmada' ? 'bg-success' : 
+                                      apt.status === 'Programada' ? 'bg-primary' : 'bg-secondary';
+                    
+                    appointmentsTable.row.add([
+                        apt.clientName,
+                        formatDate(new Date(apt.date)),
+                        apt.startTime,
+                        apt.serviceName,
+                        apt.durationMin + ' min',
+                        `<span class="badge ${statusBadge}">${apt.status}</span>`
+                    ]);
+                });
+                
+                appointmentsTable.draw();
+            }
+
+            // Event Listeners
+            $(document).on('click', '.employee-card', function() {
+                const employeeId = $(this).data('employee-id');
+                selectedEmployee = employeeId;
+                
+                $('.employee-card').removeClass('selected');
+                $(this).addClass('selected');
+                
+                loadTimeSlots();
+                loadEmployeeAppointments();
+            });
+
+            $(document).on('click', '.time-slot.available', function() {
+                const time = $(this).data('time');
+                selectedTimeSlot = time;
+                
+                $('.time-slot').removeClass('selected');
+                $(this).addClass('selected');
+                
+                // Mostrar modal de confirmación
+                if (selectedEmployee && selectedTimeSlot) {
+                    const employee = employeesData.find(emp => emp.employeeId === selectedEmployee);
+                    showBookingModal(employee.name, selectedTimeSlot);
+                }
+            });
+
+            $('#prevDay').on('click', function() {
+                selectedDate.setDate(selectedDate.getDate() - 1);
+                loadTimeSlots();
+            });
+
+            $('#nextDay').on('click', function() {
+                selectedDate.setDate(selectedDate.getDate() + 1);
+                loadTimeSlots();
+            });
+
+            $('#quickAvailabilityForm').on('submit', function(e) {
+                e.preventDefault();
+                const service = $('#quickService').val();
+                const date = $('#quickDate').val();
+                
+                if (service && date) {
+                    // Simular búsqueda de disponibilidad
+                    alert(`Buscando disponibilidad para el servicio seleccionado en ${date}`);
+                    // Aquí se integraría con el endpoint /api/v1/Availability/QuickAvailabilityCheck
+                }
+            });
+
+            $('#availabilityForm').on('submit', function(e) {
+                e.preventDefault();
+                const employeeId = $('#employeeSelect').val();
+                const startDate = $('#startDate').val();
+                const endDate = $('#endDate').val();
+                const timeSlot = $('#timeSlot').val();
+                
+                // Aplicar filtros
+                if (employeeId) {
+                    selectedEmployee = parseInt(employeeId);
+                    loadEmployees();
+                    loadTimeSlots();
+                    loadEmployeeAppointments();
+                }
+            });
+
+            // Función para mostrar modal de reserva
+            function showBookingModal(employeeName, time) {
+                // En una implementación real, esto abriría un modal de confirmación
+                const formattedDate = formatDate(selectedDate);
+                if (confirm(`¿Confirmar cita con ${employeeName} el ${formattedDate} a las ${time}?`)) {
+                    alert('¡Cita reservada exitosamente!');
+                    // Aquí se integraría con el endpoint POST /api/v1/Availability/CheckAvailability
+                }
+            }
+
+            // Inicialización
+            function initialize() {
+                // Establecer fechas por defecto
+                const today = new Date().toISOString().split('T')[0];
+                $('#quickDate').val(today);
+                $('#startDate').val(today);
+                $('#endDate').val(today);
+                
+                // Cargar datos iniciales
+                loadEmployees();
+                if (employeesData.length > 0) {
+                    selectedEmployee = employeesData[0].employeeId;
+                    $('.employee-card').first().addClass('selected');
+                    loadTimeSlots();
+                    loadEmployeeAppointments();
+                }
+            }
+
+            // Inicializar la aplicación
+            initialize();
+        });
+    </script>
+</body>
 </html>

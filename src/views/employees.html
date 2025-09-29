@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbería Christopher - Sistema Administrativo</title>
+    <title>Barbería Christopher - Gestión de Empleados</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/common.css">
 </head>
 
@@ -26,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.html">
+                        <a class="nav-link active" href="dashboard.html">
                             <i class="bi bi-house-door me-1"></i>Inicio
                         </a>
                     </li>
@@ -58,7 +59,7 @@
                         <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
                             <li><a class="dropdown-item" href="services.html"><i
                                         class="bi bi-list-check me-2"></i>Servicios</a></li>
-                            <li><a class="dropdown-item" href="appoinments-services.html"><i
+                            <li><a class="dropdown-item" href="appointment-services.html"><i
                                         class="bi bi-calendar-check me-2"></i>Servicios de Citas</a></li>
                         </ul>
                     </li>
@@ -70,11 +71,11 @@
                             <i class="bi bi-calendar-event me-1"></i>Citas
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="citasDropdown">
-                            <li><a class="dropdown-item" href="appointment.html"><i
+                            <li><a class="dropdown-item" href="schedules.html"><i
                                         class="bi bi-clock me-2"></i>Programación</a></li>
                             <li><a class="dropdown-item" href="availability.html"><i
                                         class="bi bi-calendar2-check me-2"></i>Disponibilidad</a></li>
-                            <li><a class="dropdown-item" href="appointment2.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
+                            <li><a class="dropdown-item" href="appointments.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
                             </li>
                         </ul>
                     </li>
@@ -104,86 +105,80 @@
     <!-- Contenido principal -->
     <main class="container-fluid my-2">
         <div class="row">
-            <div class="col-6">
+            <div class="col-lg-8">
                 <div class="main-content">
-                    <h1 class="welcome-title">Empleados</h1>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h1 class="welcome-title">Lista de Empleados</h1>
+                    <div class="table-responsive">
+                        <table id="employeesTable" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Teléfono</th>
+                                    <th>CUI</th>
+                                    <th>Especialidad</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Los datos se cargarán dinámicamente con JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-4">
                 <div class="main-content">
-                    <h1 class="welcome-title">Mantenimiento</h1>
-                    <form class="row g-3">
-                        <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputPassword4" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4">
-                        </div>
+                    <h1 class="welcome-title">Mantenimiento de Empleados</h1>
+                    <form id="employeeForm" class="row g-3">
+                        <input type="hidden" id="employeeId" name="employeeId">
+                        
                         <div class="col-12">
-                            <label for="inputAddress" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                            <label for="name" class="form-label">Nombre Completo</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
+                        
                         <div class="col-12">
-                            <label for="inputAddress2" class="form-label">Address 2</label>
-                            <input type="text" class="form-control" id="inputAddress2"
-                                placeholder="Apartment, studio, or floor">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
                         </div>
-                        <div class="col-md-6">
-                            <label for="inputCity" class="form-label">City</label>
-                            <input type="text" class="form-control" id="inputCity">
+                        
+                        <div class="col-12">
+                            <label for="phone" class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
                         </div>
-                        <div class="col-md-4">
-                            <label for="inputState" class="form-label">State</label>
-                            <select id="inputState" class="form-select">
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                        
+                        <div class="col-12">
+                            <label for="cui" class="form-label">CUI (Documento de Identificación)</label>
+                            <input type="text" class="form-control" id="cui" name="cui" required>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="specialty" class="form-label">Especialidad</label>
+                            <select class="form-select" id="specialty" name="specialty" required>
+                                <option value="" selected disabled>Seleccione una especialidad</option>
+                                <option value="Cortes Clásicos">Cortes Clásicos</option>
+                                <option value="Estilos Modernos">Estilos Modernos</option>
+                                <option value="Barbas y Bigotes">Barbas y Bigotes</option>
+                                <option value="Afeitado Clásico">Afeitado Clásico</option>
+                                <option value="Tratamientos Faciales">Tratamientos Faciales</option>
+                                <option value="Coloración">Coloración</option>
+                                <option value="Multiple">Múltiples Especialidades</option>
                             </select>
                         </div>
-                        <div class="col-md-2">
-                            <label for="inputZip" class="form-label">Zip</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
+                        
                         <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                </label>
+                            <div class="form-check form-switch mt-2">
+                                <input class="form-check-input" type="checkbox" id="isActive" name="isActive" checked>
+                                <label class="form-check-label" for="isActive">Empleado Activo</label>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-success me-2 mt-2" id="submitBtn">Guardar Empleado</button>
+                            <button type="button" class="btn btn-secondary mt-2" id="resetBtn">Limpiar Formulario</button>
                         </div>
                     </form>
                 </div>
@@ -208,13 +203,276 @@
             </div>
             <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.1);">
             <div class="text-center">
-                <p class="mb-0">&copy; Todos los derechos reservados.</p>
+                <p class="mb-0">&copy; 2023 Barbería Christopher. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Inicializar DataTable
+            var table = $('#employeesTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                responsive: true,
+                order: [[0, 'desc']]
+            });
 
+            // Datos de ejemplo basados en el JSON proporcionado
+            var employeesData = [
+                {
+                    employeeId: 1,
+                    name: "Roberto Silva",
+                    email: "roberto.silva@barberiachristopher.com",
+                    phone: "+1 234 567 890",
+                    cui: "1234567890123",
+                    specialty: "Cortes Clásicos",
+                    isActive: true
+                },
+                {
+                    employeeId: 2,
+                    name: "Laura Mendoza",
+                    email: "laura.mendoza@barberiachristopher.com",
+                    phone: "+1 234 567 891",
+                    cui: "9876543210987",
+                    specialty: "Estilos Modernos",
+                    isActive: true
+                },
+                {
+                    employeeId: 3,
+                    name: "Miguel Torres",
+                    email: "miguel.torres@barberiachristopher.com",
+                    phone: "+1 234 567 892",
+                    cui: "4567891230456",
+                    specialty: "Barbas y Bigotes",
+                    isActive: true
+                },
+                {
+                    employeeId: 4,
+                    name: "Carlos Rodríguez",
+                    email: "carlos.rodriguez@barberiachristopher.com",
+                    phone: "+1 234 567 893",
+                    cui: "7890123456789",
+                    specialty: "Afeitado Clásico",
+                    isActive: false
+                },
+                {
+                    employeeId: 5,
+                    name: "Ana Martínez",
+                    email: "ana.martinez@barberiachristopher.com",
+                    phone: "+1 234 567 894",
+                    cui: "3210987654321",
+                    specialty: "Tratamientos Faciales",
+                    isActive: true
+                }
+            ];
+
+            // Función para obtener icono según especialidad
+            function getSpecialtyIcon(specialty) {
+                const icons = {
+                    'Cortes Clásicos': 'bi-scissors',
+                    'Estilos Modernos': 'bi-star',
+                    'Barbas y Bigotes': 'bi-person',
+                    'Afeitado Clásico': 'bi-droplet',
+                    'Tratamientos Faciales': 'bi-moisture',
+                    'Coloración': 'bi-palette',
+                    'Multiple': 'bi-award'
+                };
+                return icons[specialty] || 'bi-person';
+            }
+
+            // Cargar datos en la tabla
+            function loadEmployeesData() {
+                table.clear();
+                employeesData.forEach(function(employee) {
+                    var statusBadge = employee.isActive ? 
+                        '<span class="badge bg-success">Activo</span>' : 
+                        '<span class="badge bg-danger">Inactivo</span>';
+                    
+                    var specialtyIcon = `<i class="bi ${getSpecialtyIcon(employee.specialty)} me-1"></i>`;
+                    
+                    var actionButtons = `
+                        <div class="action-buttons">
+                            <button class="btn btn-sm btn-outline-primary edit-employee" data-id="${employee.employeeId}">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-employee" data-id="${employee.employeeId}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info view-employee" data-id="${employee.employeeId}">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    table.row.add([
+                        employee.employeeId,
+                        employee.name,
+                        employee.email,
+                        employee.phone,
+                        employee.cui,
+                        specialtyIcon + ' ' + employee.specialty,
+                        statusBadge,
+                        actionButtons
+                    ]);
+                });
+                table.draw();
+            }
+
+            // Cargar datos iniciales
+            loadEmployeesData();
+
+            // Manejar envío del formulario
+            $('#employeeForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Obtener datos del formulario
+                var formData = {
+                    employeeId: $('#employeeId').val() ? parseInt($('#employeeId').val()) : 0,
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    phone: $('#phone').val(),
+                    cui: $('#cui').val(),
+                    specialty: $('#specialty').val(),
+                    isActive: $('#isActive').is(':checked')
+                };
+                
+                // Validaciones básicas
+                if (!formData.name || !formData.email || !formData.phone || !formData.cui || !formData.specialty) {
+                    alert('Por favor, complete todos los campos obligatorios.');
+                    return;
+                }
+                
+                // Validar email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(formData.email)) {
+                    alert('Por favor, ingrese un email válido.');
+                    return;
+                }
+                
+                // Validar CUI (13 dígitos)
+                const cuiRegex = /^\d{13}$/;
+                if (!cuiRegex.test(formData.cui)) {
+                    alert('El CUI debe contener exactamente 13 dígitos.');
+                    return;
+                }
+                
+                // Si es un nuevo empleado (employeeId = 0), generar un nuevo ID
+                if (formData.employeeId === 0) {
+                    formData.employeeId = employeesData.length > 0 ? 
+                        Math.max(...employeesData.map(e => e.employeeId)) + 1 : 1;
+                    employeesData.push(formData);
+                } else {
+                    // Actualizar empleado existente
+                    var index = employeesData.findIndex(e => e.employeeId === formData.employeeId);
+                    if (index !== -1) {
+                        employeesData[index] = formData;
+                    }
+                }
+                
+                // Recargar la tabla
+                loadEmployeesData();
+                
+                // Resetear formulario
+                $('#employeeForm')[0].reset();
+                $('#employeeId').val('');
+                $('#submitBtn').text('Guardar Empleado');
+                $('#isActive').prop('checked', true);
+                
+                // Mostrar mensaje de éxito
+                alert('Empleado guardado exitosamente');
+            });
+
+            // Manejar edición de empleado
+            $(document).on('click', '.edit-employee', function() {
+                var employeeId = $(this).data('id');
+                var employee = employeesData.find(e => e.employeeId === employeeId);
+                
+                if (employee) {
+                    $('#employeeId').val(employee.employeeId);
+                    $('#name').val(employee.name);
+                    $('#email').val(employee.email);
+                    $('#phone').val(employee.phone);
+                    $('#cui').val(employee.cui);
+                    $('#specialty').val(employee.specialty);
+                    $('#isActive').prop('checked', employee.isActive);
+                    $('#submitBtn').text('Actualizar Empleado');
+                    
+                    // Desplazarse al formulario
+                    $('html, body').animate({
+                        scrollTop: $('#employeeForm').offset().top - 100
+                    }, 500);
+                }
+            });
+
+            // Manejar visualización de empleado
+            $(document).on('click', '.view-employee', function() {
+                var employeeId = $(this).data('id');
+                var employee = employeesData.find(e => e.employeeId === employeeId);
+                
+                if (employee) {
+                    const employeeInfo = `
+                        <strong>ID:</strong> ${employee.employeeId}<br>
+                        <strong>Nombre:</strong> ${employee.name}<br>
+                        <strong>Email:</strong> ${employee.email}<br>
+                        <strong>Teléfono:</strong> ${employee.phone}<br>
+                        <strong>CUI:</strong> ${employee.cui}<br>
+                        <strong>Especialidad:</strong> ${employee.specialty}<br>
+                        <strong>Estado:</strong> ${employee.isActive ? 'Activo' : 'Inactivo'}
+                    `;
+                    
+                    // En una implementación real, esto podría abrir un modal
+                    alert('Información del Empleado:\n\n' + employeeInfo);
+                }
+            });
+
+            // Manejar eliminación de empleado
+            $(document).on('click', '.delete-employee', function() {
+                var employeeId = $(this).data('id');
+                
+                if (confirm('¿Está seguro de que desea eliminar este empleado?')) {
+                    employeesData = employeesData.filter(e => e.employeeId !== employeeId);
+                    loadEmployeesData();
+                    alert('Empleado eliminado exitosamente');
+                }
+            });
+
+            // Manejar botón de reset
+            $('#resetBtn').on('click', function() {
+                $('#employeeForm')[0].reset();
+                $('#employeeId').val('');
+                $('#submitBtn').text('Guardar Empleado');
+                $('#isActive').prop('checked', true);
+            });
+
+            // Validación en tiempo real para CUI
+            $('#cui').on('input', function() {
+                const cuiValue = $(this).val();
+                // Permitir solo números
+                $(this).val(cuiValue.replace(/\D/g, ''));
+                
+                // Limitar a 13 caracteres
+                if (cuiValue.length > 13) {
+                    $(this).val(cuiValue.substring(0, 13));
+                }
+            });
+
+            // Validación en tiempo real para teléfono
+            $('#phone').on('input', function() {
+                const phoneValue = $(this).val();
+                // Permitir solo números, +, - y espacios
+                $(this).val(phoneValue.replace(/[^\d+\-\s]/g, ''));
+            });
+        });
+    </script>
+</body>
 </html>

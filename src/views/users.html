@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbería Christopher - Sistema Administrativo</title>
+    <title>Barbería Christopher - Gestión de Usuarios</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/common.css">
 </head>
 
@@ -26,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.html">
+                        <a class="nav-link active" href="dashboard.html">
                             <i class="bi bi-house-door me-1"></i>Inicio
                         </a>
                     </li>
@@ -58,7 +59,7 @@
                         <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
                             <li><a class="dropdown-item" href="services.html"><i
                                         class="bi bi-list-check me-2"></i>Servicios</a></li>
-                            <li><a class="dropdown-item" href="appoinments-services.html"><i
+                            <li><a class="dropdown-item" href="appointment-services.html"><i
                                         class="bi bi-calendar-check me-2"></i>Servicios de Citas</a></li>
                         </ul>
                     </li>
@@ -70,11 +71,11 @@
                             <i class="bi bi-calendar-event me-1"></i>Citas
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="citasDropdown">
-                            <li><a class="dropdown-item" href="appointment.html"><i
+                            <li><a class="dropdown-item" href="schedules.html"><i
                                         class="bi bi-clock me-2"></i>Programación</a></li>
                             <li><a class="dropdown-item" href="availability.html"><i
                                         class="bi bi-calendar2-check me-2"></i>Disponibilidad</a></li>
-                            <li><a class="dropdown-item" href="appointment2.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
+                            <li><a class="dropdown-item" href="appointments.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
                             </li>
                         </ul>
                     </li>
@@ -104,86 +105,65 @@
     <!-- Contenido principal -->
     <main class="container-fluid my-2">
         <div class="row">
-            <div class="col-6">
+            <div class="col-lg-8">
                 <div class="main-content">
-                    <h1 class="welcome-title">Usuarios</h1>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h1 class="welcome-title">Lista de Usuarios</h1>
+                    <div class="table-responsive">
+                        <table id="usersTable" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Teléfono</th>
+                                    <th>Rol</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Los datos se cargarán dinámicamente con JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-4">
                 <div class="main-content">
-                    <h1 class="welcome-title">Mantenimiento</h1>
-                    <form class="row g-3">
-                        <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputPassword4" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4">
+                    <h1 class="welcome-title">Mantenimiento de Usuarios</h1>
+                    <form id="userForm" class="row g-3">
+                        <input type="hidden" id="userId" name="userId">
+                        <div class="col-12">
+                            <label for="name" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <div class="col-12">
-                            <label for="inputAddress" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="col-12">
-                            <label for="inputAddress2" class="form-label">Address 2</label>
-                            <input type="text" class="form-control" id="inputAddress2"
-                                placeholder="Apartment, studio, or floor">
+                            <label for="phone" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="phone" name="phone">
                         </div>
-                        <div class="col-md-6">
-                            <label for="inputCity" class="form-label">City</label>
-                            <input type="text" class="form-control" id="inputCity">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="inputState" class="form-label">State</label>
-                            <select id="inputState" class="form-select">
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                        <div class="col-12">
+                            <label for="role" class="form-label">Rol</label>
+                            <select class="form-select" id="role" name="role" required>
+                                <option value="" selected disabled>Seleccione un rol</option>
+                                <option value="Administrador">Administrador</option>
+                                <option value="Barbero">Barbero</option>
+                                <option value="Recepcionista">Recepcionista</option>
+                                <option value="Cliente">Cliente</option>
                             </select>
                         </div>
-                        <div class="col-md-2">
-                            <label for="inputZip" class="form-label">Zip</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
                         <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                </label>
+                            <div class="form-check form-switch mt-2">
+                                <input class="form-check-input" type="checkbox" id="isActive" name="isActive" checked>
+                                <label class="form-check-label" for="isActive">Usuario Activo</label>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-success me-2 mt-2" id="submitBtn">Guardar Usuario</button>
+                            <button type="button" class="btn btn-secondary mt-2" id="resetBtn">Limpiar Formulario</button>
                         </div>
                     </form>
                 </div>
@@ -208,13 +188,195 @@
             </div>
             <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.1);">
             <div class="text-center">
-                <p class="mb-0">&copy; Todos los derechos reservados.</p>
+                <p class="mb-0">&copy; 2023 Barbería Christopher. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Inicializar DataTable
+            var table = $('#usersTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                responsive: true,
+                order: [[0, 'desc']]
+            });
 
+            // Datos de ejemplo basados en el JSON proporcionado
+            var usersData = [
+                {
+                    userId: 1,
+                    name: "Juan Pérez",
+                    email: "juan@barberiachristopher.com",
+                    phone: "+1 234 567 890",
+                    role: "Administrador",
+                    isActive: true,
+                    success: 1,
+                    message: "Usuario creado exitosamente"
+                },
+                {
+                    userId: 2,
+                    name: "María García",
+                    email: "maria@barberiachristopher.com",
+                    phone: "+1 234 567 891",
+                    role: "Barbero",
+                    isActive: true,
+                    success: 1,
+                    message: "Usuario creado exitosamente"
+                },
+                {
+                    userId: 3,
+                    name: "Carlos López",
+                    email: "carlos@barberiachristopher.com",
+                    phone: "+1 234 567 892",
+                    role: "Recepcionista",
+                    isActive: false,
+                    success: 1,
+                    message: "Usuario creado exitosamente"
+                },
+                {
+                    userId: 4,
+                    name: "Ana Rodríguez",
+                    email: "ana@barberiachristopher.com",
+                    phone: "+1 234 567 893",
+                    role: "Barbero",
+                    isActive: true,
+                    success: 1,
+                    message: "Usuario creado exitosamente"
+                }
+            ];
+
+            // Cargar datos en la tabla
+            function loadUsersData() {
+                table.clear();
+                usersData.forEach(function(user) {
+                    var statusBadge = user.isActive ? 
+                        '<span class="badge bg-success">Activo</span>' : 
+                        '<span class="badge bg-danger">Inactivo</span>';
+                    
+                    var actionButtons = `
+                        <div class="action-buttons">
+                            <button class="btn btn-sm btn-outline-primary edit-user" data-id="${user.userId}">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-user" data-id="${user.userId}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    table.row.add([
+                        user.userId,
+                        user.name,
+                        user.email,
+                        user.phone,
+                        user.role,
+                        statusBadge,
+                        actionButtons
+                    ]);
+                });
+                table.draw();
+            }
+
+            // Cargar datos iniciales
+            loadUsersData();
+
+            // Manejar envío del formulario
+            $('#userForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Obtener datos del formulario
+                var formData = {
+                    userId: $('#userId').val() ? parseInt($('#userId').val()) : 0,
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    phone: $('#phone').val(),
+                    role: $('#role').val(),
+                    isActive: $('#isActive').is(':checked'),
+                    success: 1,
+                    message: "Usuario guardado exitosamente"
+                };
+                
+                // Validaciones básicas
+                if (!formData.name || !formData.email || !formData.role) {
+                    alert('Por favor, complete todos los campos obligatorios.');
+                    return;
+                }
+                
+                // Si es un nuevo usuario (userId = 0), generar un nuevo ID
+                if (formData.userId === 0) {
+                    formData.userId = usersData.length > 0 ? 
+                        Math.max(...usersData.map(u => u.userId)) + 1 : 1;
+                    usersData.push(formData);
+                } else {
+                    // Actualizar usuario existente
+                    var index = usersData.findIndex(u => u.userId === formData.userId);
+                    if (index !== -1) {
+                        usersData[index] = formData;
+                    }
+                }
+                
+                // Recargar la tabla
+                loadUsersData();
+                
+                // Resetear formulario
+                $('#userForm')[0].reset();
+                $('#userId').val('');
+                $('#submitBtn').text('Guardar Usuario');
+                
+                // Mostrar mensaje de éxito
+                alert(formData.message);
+            });
+
+            // Manejar edición de usuario
+            $(document).on('click', '.edit-user', function() {
+                var userId = $(this).data('id');
+                var user = usersData.find(u => u.userId === userId);
+                
+                if (user) {
+                    $('#userId').val(user.userId);
+                    $('#name').val(user.name);
+                    $('#email').val(user.email);
+                    $('#phone').val(user.phone);
+                    $('#role').val(user.role);
+                    $('#isActive').prop('checked', user.isActive);
+                    $('#submitBtn').text('Actualizar Usuario');
+                    
+                    // Desplazarse al formulario
+                    $('html, body').animate({
+                        scrollTop: $('#userForm').offset().top - 100
+                    }, 500);
+                }
+            });
+
+            // Manejar eliminación de usuario
+            $(document).on('click', '.delete-user', function() {
+                var userId = $(this).data('id');
+                
+                if (confirm('¿Está seguro de que desea eliminar este usuario?')) {
+                    usersData = usersData.filter(u => u.userId !== userId);
+                    loadUsersData();
+                    alert('Usuario eliminado exitosamente');
+                }
+            });
+
+            // Manejar botón de reset
+            $('#resetBtn').on('click', function() {
+                $('#userForm')[0].reset();
+                $('#userId').val('');
+                $('#submitBtn').text('Guardar Usuario');
+            });
+        });
+    </script>
+</body>
 </html>

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbería Christopher - Sistema Administrativo</title>
+    <title>Barbería Christopher - Gestión de Clientes</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/common.css">
 </head>
 
@@ -26,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.html">
+                        <a class="nav-link active" href="dashboard.html">
                             <i class="bi bi-house-door me-1"></i>Inicio
                         </a>
                     </li>
@@ -58,7 +59,7 @@
                         <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
                             <li><a class="dropdown-item" href="services.html"><i
                                         class="bi bi-list-check me-2"></i>Servicios</a></li>
-                            <li><a class="dropdown-item" href="appoinments-services.html"><i
+                            <li><a class="dropdown-item" href="appointment-services.html"><i
                                         class="bi bi-calendar-check me-2"></i>Servicios de Citas</a></li>
                         </ul>
                     </li>
@@ -70,11 +71,11 @@
                             <i class="bi bi-calendar-event me-1"></i>Citas
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="citasDropdown">
-                            <li><a class="dropdown-item" href="appointment.html"><i
+                            <li><a class="dropdown-item" href="schedules.html"><i
                                         class="bi bi-clock me-2"></i>Programación</a></li>
                             <li><a class="dropdown-item" href="availability.html"><i
                                         class="bi bi-calendar2-check me-2"></i>Disponibilidad</a></li>
-                            <li><a class="dropdown-item" href="appointment2.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
+                            <li><a class="dropdown-item" href="appointments.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
                             </li>
                         </ul>
                     </li>
@@ -104,86 +105,77 @@
     <!-- Contenido principal -->
     <main class="container-fluid my-2">
         <div class="row">
-            <div class="col-6">
+            <div class="col-lg-8">
                 <div class="main-content">
-                    <h1 class="welcome-title">Clientes</h1>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h1 class="welcome-title">Lista de Clientes</h1>
+                    <div class="table-responsive">
+                        <table id="clientsTable" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Teléfono</th>
+                                    <th>Email</th>
+                                    <th>Género</th>
+                                    <th>Fecha Registro</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Los datos se cargarán dinámicamente con JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-4">
                 <div class="main-content">
-                    <h1 class="welcome-title">Mantenimiento</h1>
-                    <form class="row g-3">
-                        <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputPassword4" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4">
-                        </div>
+                    <h1 class="welcome-title">Mantenimiento de Clientes</h1>
+                    <form id="clientForm" class="row g-3">
+                        <input type="hidden" id="clientId" name="clientId">
+                        
                         <div class="col-12">
-                            <label for="inputAddress" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                            <label for="name" class="form-label">Nombre Completo</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
+                        
                         <div class="col-12">
-                            <label for="inputAddress2" class="form-label">Address 2</label>
-                            <input type="text" class="form-control" id="inputAddress2"
-                                placeholder="Apartment, studio, or floor">
+                            <label for="phone" class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
                         </div>
-                        <div class="col-md-6">
-                            <label for="inputCity" class="form-label">City</label>
-                            <input type="text" class="form-control" id="inputCity">
+                        
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
                         </div>
-                        <div class="col-md-4">
-                            <label for="inputState" class="form-label">State</label>
-                            <select id="inputState" class="form-select">
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                        
+                        <div class="col-12">
+                            <label for="gender" class="form-label">Género</label>
+                            <select class="form-select" id="gender" name="gender" required>
+                                <option value="" selected disabled>Seleccione un género</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Otro">Otro</option>
+                                <option value="Prefiero no decir">Prefiero no decir</option>
                             </select>
                         </div>
-                        <div class="col-md-2">
-                            <label for="inputZip" class="form-label">Zip</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
+                        
                         <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                </label>
+                            <label for="registrationDate" class="form-label">Fecha de Registro</label>
+                            <input type="date" class="form-control" id="registrationDate" name="registrationDate" required>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="form-check form-switch mt-2">
+                                <input class="form-check-input" type="checkbox" id="isActive" name="isActive" checked>
+                                <label class="form-check-label" for="isActive">Cliente Activo</label>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-success me-2 mt-2" id="submitBtn">Guardar Cliente</button>
+                            <button type="button" class="btn btn-secondary mt-2" id="resetBtn">Limpiar Formulario</button>
                         </div>
                     </form>
                 </div>
@@ -208,13 +200,260 @@
             </div>
             <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.1);">
             <div class="text-center">
-                <p class="mb-0">&copy; Todos los derechos reservados.</p>
+                <p class="mb-0">&copy; 2023 Barbería Christopher. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Inicializar DataTable
+            var table = $('#clientsTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                responsive: true,
+                order: [[0, 'desc']]
+            });
 
+            // Datos de ejemplo basados en el JSON proporcionado
+            var clientsData = [
+                {
+                    clientId: 1,
+                    name: "Juan Pérez",
+                    phone: "+1 234 567 890",
+                    email: "juan.perez@email.com",
+                    gender: "Masculino",
+                    registrationDate: "2023-01-15",
+                    isActive: true
+                },
+                {
+                    clientId: 2,
+                    name: "María García",
+                    phone: "+1 234 567 891",
+                    email: "maria.garcia@email.com",
+                    gender: "Femenino",
+                    registrationDate: "2023-02-20",
+                    isActive: true
+                },
+                {
+                    clientId: 3,
+                    name: "Carlos López",
+                    phone: "+1 234 567 892",
+                    email: "carlos.lopez@email.com",
+                    gender: "Masculino",
+                    registrationDate: "2023-03-10",
+                    isActive: false
+                },
+                {
+                    clientId: 4,
+                    name: "Ana Rodríguez",
+                    phone: "+1 234 567 893",
+                    email: "ana.rodriguez@email.com",
+                    gender: "Femenino",
+                    registrationDate: "2023-04-05",
+                    isActive: true
+                },
+                {
+                    clientId: 5,
+                    name: "Pedro Martínez",
+                    phone: "+1 234 567 894",
+                    email: "pedro.martinez@email.com",
+                    gender: "Masculino",
+                    registrationDate: "2023-05-12",
+                    isActive: true
+                }
+            ];
+
+            // Función para formatear fecha
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                });
+            }
+
+            // Cargar datos en la tabla
+            function loadClientsData() {
+                table.clear();
+                clientsData.forEach(function(client) {
+                    var statusBadge = client.isActive ? 
+                        '<span class="badge bg-success">Activo</span>' : 
+                        '<span class="badge bg-danger">Inactivo</span>';
+                    
+                    var genderIcon = client.gender === 'Masculino' ? 
+                        '<i class="bi bi-gender-male text-primary"></i>' :
+                        client.gender === 'Femenino' ? 
+                        '<i class="bi bi-gender-female text-danger"></i>' :
+                        '<i class="bi bi-gender-ambiguous text-secondary"></i>';
+                    
+                    var actionButtons = `
+                        <div class="action-buttons">
+                            <button class="btn btn-sm btn-outline-primary edit-client" data-id="${client.clientId}">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-client" data-id="${client.clientId}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info view-client" data-id="${client.clientId}">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    table.row.add([
+                        client.clientId,
+                        client.name,
+                        client.phone,
+                        client.email,
+                        genderIcon + ' ' + client.gender,
+                        formatDate(client.registrationDate),
+                        statusBadge,
+                        actionButtons
+                    ]);
+                });
+                table.draw();
+            }
+
+            // Cargar datos iniciales
+            loadClientsData();
+
+            // Manejar envío del formulario
+            $('#clientForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Obtener datos del formulario
+                var formData = {
+                    clientId: $('#clientId').val() ? parseInt($('#clientId').val()) : 0,
+                    name: $('#name').val(),
+                    phone: $('#phone').val(),
+                    email: $('#email').val(),
+                    gender: $('#gender').val(),
+                    registrationDate: $('#registrationDate').val(),
+                    isActive: $('#isActive').is(':checked')
+                };
+                
+                // Validaciones básicas
+                if (!formData.name || !formData.phone || !formData.email || !formData.gender || !formData.registrationDate) {
+                    alert('Por favor, complete todos los campos obligatorios.');
+                    return;
+                }
+                
+                // Validar email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(formData.email)) {
+                    alert('Por favor, ingrese un email válido.');
+                    return;
+                }
+                
+                // Si es un nuevo cliente (clientId = 0), generar un nuevo ID
+                if (formData.clientId === 0) {
+                    formData.clientId = clientsData.length > 0 ? 
+                        Math.max(...clientsData.map(c => c.clientId)) + 1 : 1;
+                    clientsData.push(formData);
+                } else {
+                    // Actualizar cliente existente
+                    var index = clientsData.findIndex(c => c.clientId === formData.clientId);
+                    if (index !== -1) {
+                        clientsData[index] = formData;
+                    }
+                }
+                
+                // Recargar la tabla
+                loadClientsData();
+                
+                // Resetear formulario
+                $('#clientForm')[0].reset();
+                $('#clientId').val('');
+                $('#submitBtn').text('Guardar Cliente');
+                
+                // Establecer fecha actual por defecto
+                const todayFormatted = new Date().toISOString().split('T')[0];
+                $('#registrationDate').val(todayFormatted);
+                
+                // Mostrar mensaje de éxito
+                alert('Cliente guardado exitosamente');
+            });
+
+            // Manejar edición de cliente
+            $(document).on('click', '.edit-client', function() {
+                var clientId = $(this).data('id');
+                var client = clientsData.find(c => c.clientId === clientId);
+                
+                if (client) {
+                    $('#clientId').val(client.clientId);
+                    $('#name').val(client.name);
+                    $('#phone').val(client.phone);
+                    $('#email').val(client.email);
+                    $('#gender').val(client.gender);
+                    $('#registrationDate').val(client.registrationDate);
+                    $('#isActive').prop('checked', client.isActive);
+                    $('#submitBtn').text('Actualizar Cliente');
+                    
+                    // Desplazarse al formulario
+                    $('html, body').animate({
+                        scrollTop: $('#clientForm').offset().top - 100
+                    }, 500);
+                }
+            });
+
+            // Manejar visualización de cliente
+            $(document).on('click', '.view-client', function() {
+                var clientId = $(this).data('id');
+                var client = clientsData.find(c => c.clientId === clientId);
+                
+                if (client) {
+                    const clientInfo = `
+                        <strong>ID:</strong> ${client.clientId}<br>
+                        <strong>Nombre:</strong> ${client.name}<br>
+                        <strong>Teléfono:</strong> ${client.phone}<br>
+                        <strong>Email:</strong> ${client.email}<br>
+                        <strong>Género:</strong> ${client.gender}<br>
+                        <strong>Fecha Registro:</strong> ${formatDate(client.registrationDate)}<br>
+                        <strong>Estado:</strong> ${client.isActive ? 'Activo' : 'Inactivo'}
+                    `;
+                    
+                    // En una implementación real, esto podría abrir un modal
+                    alert('Información del Cliente:\n\n' + clientInfo);
+                }
+            });
+
+            // Manejar eliminación de cliente
+            $(document).on('click', '.delete-client', function() {
+                var clientId = $(this).data('id');
+                
+                if (confirm('¿Está seguro de que desea eliminar este cliente?')) {
+                    clientsData = clientsData.filter(c => c.clientId !== clientId);
+                    loadClientsData();
+                    alert('Cliente eliminado exitosamente');
+                }
+            });
+
+            // Manejar botón de reset
+            $('#resetBtn').on('click', function() {
+                $('#clientForm')[0].reset();
+                $('#clientId').val('');
+                $('#submitBtn').text('Guardar Cliente');
+                
+                // Establecer fecha actual por defecto
+                const todayFormatted = new Date().toISOString().split('T')[0];
+                $('#registrationDate').val(todayFormatted);
+            });
+
+            // Establecer fecha actual por defecto
+            const todayFormatted = new Date().toISOString().split('T')[0];
+            $('#registrationDate').val(todayFormatted);
+        });
+    </script>
+</body>
 </html>

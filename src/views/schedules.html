@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbería Christopher - Sistema Administrativo</title>
+    <title>Barbería Christopher - Programación de Horarios</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/common.css">
 </head>
 
@@ -26,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard.html">
+                        <a class="nav-link active" href="dashboard.html">
                             <i class="bi bi-house-door me-1"></i>Inicio
                         </a>
                     </li>
@@ -58,7 +59,7 @@
                         <ul class="dropdown-menu" aria-labelledby="serviciosDropdown">
                             <li><a class="dropdown-item" href="services.html"><i
                                         class="bi bi-list-check me-2"></i>Servicios</a></li>
-                            <li><a class="dropdown-item" href="appoinments-services.html"><i
+                            <li><a class="dropdown-item" href="appointment-services.html"><i
                                         class="bi bi-calendar-check me-2"></i>Servicios de Citas</a></li>
                         </ul>
                     </li>
@@ -70,11 +71,11 @@
                             <i class="bi bi-calendar-event me-1"></i>Citas
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="citasDropdown">
-                            <li><a class="dropdown-item" href="appointment.html"><i
+                            <li><a class="dropdown-item" href="schedules.html"><i
                                         class="bi bi-clock me-2"></i>Programación</a></li>
                             <li><a class="dropdown-item" href="availability.html"><i
                                         class="bi bi-calendar2-check me-2"></i>Disponibilidad</a></li>
-                            <li><a class="dropdown-item" href="appointment2.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
+                            <li><a class="dropdown-item" href="appointments.html"><i class="bi bi-calendar-plus me-2"></i>Citas</a>
                             </li>
                         </ul>
                     </li>
@@ -104,86 +105,79 @@
     <!-- Contenido principal -->
     <main class="container-fluid my-2">
         <div class="row">
-            <div class="col-6">
+            <div class="col-lg-8">
                 <div class="main-content">
-                    <h1 class="welcome-title">Programación de Citas</h1>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h1 class="welcome-title">Horarios de Empleados</h1>
+                    <div class="table-responsive">
+                        <table id="schedulesTable" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Empleado</th>
+                                    <th>Día</th>
+                                    <th>Horario</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Los datos se cargarán dinámicamente con JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-4">
                 <div class="main-content">
-                    <h1 class="welcome-title">Mantenimiento</h1>
-                    <form class="row g-3">
-                        <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputPassword4" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4">
-                        </div>
+                    <h1 class="welcome-title">Programar Horario</h1>
+                    <form id="scheduleForm" class="row g-3">
+                        <input type="hidden" id="scheduleId" name="scheduleId">
+                        
                         <div class="col-12">
-                            <label for="inputAddress" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                        </div>
-                        <div class="col-12">
-                            <label for="inputAddress2" class="form-label">Address 2</label>
-                            <input type="text" class="form-control" id="inputAddress2"
-                                placeholder="Apartment, studio, or floor">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputCity" class="form-label">City</label>
-                            <input type="text" class="form-control" id="inputCity">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="inputState" class="form-label">State</label>
-                            <select id="inputState" class="form-select">
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                            <label for="employeeId" class="form-label">Empleado</label>
+                            <select class="form-select" id="employeeId" name="employeeId" required>
+                                <option value="" selected disabled>Seleccione un empleado</option>
+                                <option value="1">Roberto Silva</option>
+                                <option value="2">Laura Mendoza</option>
+                                <option value="3">Miguel Torres</option>
+                                <option value="4">Carlos Rodríguez</option>
                             </select>
                         </div>
-                        <div class="col-md-2">
-                            <label for="inputZip" class="form-label">Zip</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
+                        
                         <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                </label>
+                            <label for="dayOfWeek" class="form-label">Día de la Semana</label>
+                            <select class="form-select" id="dayOfWeek" name="dayOfWeek" required>
+                                <option value="" selected disabled>Seleccione un día</option>
+                                <option value="1">Lunes</option>
+                                <option value="2">Martes</option>
+                                <option value="3">Miércoles</option>
+                                <option value="4">Jueves</option>
+                                <option value="5">Viernes</option>
+                                <option value="6">Sábado</option>
+                                <option value="7">Domingo</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="startTime" class="form-label">Hora de Inicio</label>
+                            <input type="time" class="form-control" id="startTime" name="startTime" required>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="endTime" class="form-label">Hora de Fin</label>
+                            <input type="time" class="form-control" id="endTime" name="endTime" required>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="form-check form-switch mt-2">
+                                <input class="form-check-input" type="checkbox" id="isActive" name="isActive" checked>
+                                <label class="form-check-label" for="isActive">Horario Activo</label>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-success me-2 mt-2" id="submitBtn">Guardar Horario</button>
+                            <button type="button" class="btn btn-secondary mt-2" id="resetBtn">Limpiar Formulario</button>
                         </div>
                     </form>
                 </div>
@@ -208,13 +202,258 @@
             </div>
             <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.1);">
             <div class="text-center">
-                <p class="mb-0">&copy; Todos los derechos reservados.</p>
+                <p class="mb-0">&copy; 2023 Barbería Christopher. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Inicializar DataTable
+            var table = $('#schedulesTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                responsive: true,
+                order: [[0, 'desc']]
+            });
 
+            // Datos de ejemplo basados en el JSON proporcionado
+            var schedulesData = [
+                {
+                    scheduleId: 1,
+                    employeeId: 1,
+                    dayOfWeek: 1,
+                    startTime: "08:00",
+                    endTime: "17:00",
+                    isActive: true,
+                    success: 1,
+                    message: "Horario creado exitosamente"
+                },
+                {
+                    scheduleId: 2,
+                    employeeId: 1,
+                    dayOfWeek: 2,
+                    startTime: "08:00",
+                    endTime: "17:00",
+                    isActive: true,
+                    success: 1,
+                    message: "Horario creado exitosamente"
+                },
+                {
+                    scheduleId: 3,
+                    employeeId: 2,
+                    dayOfWeek: 1,
+                    startTime: "09:00",
+                    endTime: "18:00",
+                    isActive: true,
+                    success: 1,
+                    message: "Horario creado exitosamente"
+                },
+                {
+                    scheduleId: 4,
+                    employeeId: 3,
+                    dayOfWeek: 6,
+                    startTime: "10:00",
+                    endTime: "15:00",
+                    isActive: false,
+                    success: 1,
+                    message: "Horario creado exitosamente"
+                }
+            ];
+
+            // Función para obtener nombre del día
+            function getDayName(dayOfWeek) {
+                const days = {
+                    1: "Lunes",
+                    2: "Martes",
+                    3: "Miércoles",
+                    4: "Jueves",
+                    5: "Viernes",
+                    6: "Sábado",
+                    7: "Domingo"
+                };
+                return days[dayOfWeek] || "Día desconocido";
+            }
+
+            // Función para obtener nombre del empleado
+            function getEmployeeName(employeeId) {
+                const employees = {
+                    1: "Roberto Silva",
+                    2: "Laura Mendoza",
+                    3: "Miguel Torres",
+                    4: "Carlos Rodríguez"
+                };
+                return employees[employeeId] || "Empleado desconocido";
+            }
+
+            // Función para formatear horario
+            function formatSchedule(startTime, endTime) {
+                return `${startTime} - ${endTime}`;
+            }
+
+            // Cargar datos en la tabla
+            function loadSchedulesData() {
+                table.clear();
+                schedulesData.forEach(function(schedule) {
+                    var statusBadge = schedule.isActive ? 
+                        '<span class="badge bg-success">Activo</span>' : 
+                        '<span class="badge bg-danger">Inactivo</span>';
+                    
+                    var actionButtons = `
+                        <div class="action-buttons">
+                            <button class="btn btn-sm btn-outline-primary edit-schedule" data-id="${schedule.scheduleId}">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger delete-schedule" data-id="${schedule.scheduleId}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-info view-schedule" data-id="${schedule.scheduleId}">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    table.row.add([
+                        schedule.scheduleId,
+                        getEmployeeName(schedule.employeeId),
+                        getDayName(schedule.dayOfWeek),
+                        formatSchedule(schedule.startTime, schedule.endTime),
+                        statusBadge,
+                        actionButtons
+                    ]);
+                });
+                table.draw();
+            }
+
+            // Cargar datos iniciales
+            loadSchedulesData();
+
+            // Manejar envío del formulario
+            $('#scheduleForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Obtener datos del formulario
+                var formData = {
+                    scheduleId: $('#scheduleId').val() ? parseInt($('#scheduleId').val()) : 0,
+                    employeeId: parseInt($('#employeeId').val()),
+                    dayOfWeek: parseInt($('#dayOfWeek').val()),
+                    startTime: $('#startTime').val(),
+                    endTime: $('#endTime').val(),
+                    isActive: $('#isActive').is(':checked'),
+                    success: 1,
+                    message: "Horario guardado exitosamente"
+                };
+                
+                // Validaciones básicas
+                if (!formData.employeeId || !formData.dayOfWeek || !formData.startTime || !formData.endTime) {
+                    alert('Por favor, complete todos los campos obligatorios.');
+                    return;
+                }
+                
+                // Validar que la hora de fin sea mayor que la hora de inicio
+                if (formData.startTime >= formData.endTime) {
+                    alert('La hora de fin debe ser mayor que la hora de inicio.');
+                    return;
+                }
+                
+                // Si es un nuevo horario (scheduleId = 0), generar un nuevo ID
+                if (formData.scheduleId === 0) {
+                    formData.scheduleId = schedulesData.length > 0 ? 
+                        Math.max(...schedulesData.map(s => s.scheduleId)) + 1 : 1;
+                    schedulesData.push(formData);
+                } else {
+                    // Actualizar horario existente
+                    var index = schedulesData.findIndex(s => s.scheduleId === formData.scheduleId);
+                    if (index !== -1) {
+                        schedulesData[index] = formData;
+                    }
+                }
+                
+                // Recargar la tabla
+                loadSchedulesData();
+                
+                // Resetear formulario
+                $('#scheduleForm')[0].reset();
+                $('#scheduleId').val('');
+                $('#submitBtn').text('Guardar Horario');
+                $('#isActive').prop('checked', true);
+                
+                // Mostrar mensaje de éxito
+                alert('Horario guardado exitosamente');
+            });
+
+            // Manejar edición de horario
+            $(document).on('click', '.edit-schedule', function() {
+                var scheduleId = $(this).data('id');
+                var schedule = schedulesData.find(s => s.scheduleId === scheduleId);
+                
+                if (schedule) {
+                    $('#scheduleId').val(schedule.scheduleId);
+                    $('#employeeId').val(schedule.employeeId);
+                    $('#dayOfWeek').val(schedule.dayOfWeek);
+                    $('#startTime').val(schedule.startTime);
+                    $('#endTime').val(schedule.endTime);
+                    $('#isActive').prop('checked', schedule.isActive);
+                    $('#submitBtn').text('Actualizar Horario');
+                    
+                    // Desplazarse al formulario
+                    $('html, body').animate({
+                        scrollTop: $('#scheduleForm').offset().top - 100
+                    }, 500);
+                }
+            });
+
+            // Manejar visualización de horario
+            $(document).on('click', '.view-schedule', function() {
+                var scheduleId = $(this).data('id');
+                var schedule = schedulesData.find(s => s.scheduleId === scheduleId);
+                
+                if (schedule) {
+                    const scheduleInfo = `
+                        <strong>ID:</strong> ${schedule.scheduleId}<br>
+                        <strong>Empleado:</strong> ${getEmployeeName(schedule.employeeId)}<br>
+                        <strong>Día:</strong> ${getDayName(schedule.dayOfWeek)}<br>
+                        <strong>Horario:</strong> ${formatSchedule(schedule.startTime, schedule.endTime)}<br>
+                        <strong>Estado:</strong> ${schedule.isActive ? 'Activo' : 'Inactivo'}
+                    `;
+                    
+                    // En una implementación real, esto podría abrir un modal
+                    alert('Información del Horario:\n\n' + scheduleInfo);
+                }
+            });
+
+            // Manejar eliminación de horario
+            $(document).on('click', '.delete-schedule', function() {
+                var scheduleId = $(this).data('id');
+                
+                if (confirm('¿Está seguro de que desea eliminar este horario?')) {
+                    schedulesData = schedulesData.filter(s => s.scheduleId !== scheduleId);
+                    loadSchedulesData();
+                    alert('Horario eliminado exitosamente');
+                }
+            });
+
+            // Manejar botón de reset
+            $('#resetBtn').on('click', function() {
+                $('#scheduleForm')[0].reset();
+                $('#scheduleId').val('');
+                $('#submitBtn').text('Guardar Horario');
+                $('#isActive').prop('checked', true);
+            });
+
+            // Establecer horarios por defecto
+            $('#startTime').val('08:00');
+            $('#endTime').val('17:00');
+        });
+    </script>
+</body>
 </html>
