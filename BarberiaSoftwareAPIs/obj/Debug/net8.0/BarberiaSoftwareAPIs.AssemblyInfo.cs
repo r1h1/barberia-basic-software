@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BarberiaSoftwareAPIs")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63261991ce7801556a69828519d7966d73c21638")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d7f9266a9986a62b623e753a4c19450f6bf8dc8d")]
 [assembly: System.Reflection.AssemblyProductAttribute("BarberiaSoftwareAPIs")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BarberiaSoftwareAPIs")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

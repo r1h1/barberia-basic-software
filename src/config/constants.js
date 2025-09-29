@@ -1,0 +1,101 @@
+// ============================
+// API BASES
+// ============================
+const API_URL_BASE = 'https://barbersoftapis.somee.com';
+
+// ANNOUNCEMENTS
+const ANNOUNCEMENTS_API = `${API_URL_BASE}/api/v1/Announcements`;
+const ANNOUNCEMENTS_GET_BY_ID_API = (id) => `${ANNOUNCEMENTS_API}/${id}`;
+
+// APPOINTMENTS
+const APPOINTMENTS_API = `${API_URL_BASE}/api/v1/Appointments`;
+const APPOINTMENTS_GET_BY_ID_API = (id) => `${APPOINTMENTS_API}/${id}`;
+
+// APPOINTMENT SERVICES
+const APPOINTMENT_SERVICES_API = `${API_URL_BASE}/api/v1/AppointmentServices`;
+const APPOINTMENT_SERVICES_GET_BY_ID_API = (id) => `${APPOINTMENT_SERVICES_API}/${id}`;
+const APPOINTMENT_SERVICES_BY_APPOINTMENT_API = (appointmentId) => `${APPOINTMENT_SERVICES_API}/ByAppointment/${appointmentId}`;
+
+// AUTH
+const AUTH_API = `${API_URL_BASE}/api/v1/Auth`;
+const AUTH_LOGIN_API = `${AUTH_API}/Login`;
+const AUTH_REGISTER_API = `${AUTH_API}/Register`;
+const AUTH_NEW_PASSWORD_API = `${AUTH_API}/NewPassword`;
+const AUTH_UPDATE_API = `${AUTH_API}`;
+
+// AVAILABILITY
+const AVAILABILITY_API = `${API_URL_BASE}/api/v1/Availability`;
+const AVAILABILITY_EMPLOYEES_WITH_SLOTS_API = `${AVAILABILITY_API}/EmployeesWithSlots`;
+const AVAILABILITY_CHECK_API = `${AVAILABILITY_API}/CheckAvailability`;
+const AVAILABILITY_EMPLOYEE_APPOINTMENTS_API = (employeeId) => `${AVAILABILITY_API}/EmployeeAppointments/${employeeId}`;
+const AVAILABILITY_SERVICES_API = `${AVAILABILITY_API}/Services`;
+const AVAILABILITY_QUICK_CHECK_API = `${AVAILABILITY_API}/QuickAvailabilityCheck`;
+
+// CLIENTS
+const CLIENTS_API = `${API_URL_BASE}/api/v1/Clients`;
+const CLIENTS_GET_BY_ID_API = (id) => `${CLIENTS_API}/${id}`;
+
+// EMPLOYEES
+const EMPLOYEES_API = `${API_URL_BASE}/api/v1/Employees`;
+const EMPLOYEES_GET_BY_ID_API = (id) => `${EMPLOYEES_API}/${id}`;
+
+// PAYMENTS
+const PAYMENTS_API = `${API_URL_BASE}/api/v1/Payments`;
+const PAYMENTS_GET_BY_ID_API = (id) => `${PAYMENTS_API}/${id}`;
+
+// ROLES
+const ROLES_API = `${API_URL_BASE}/api/v1/Roles`;
+const ROLES_GET_BY_ID_API = (id) => `${ROLES_API}/${id}`;
+
+// SCHEDULES
+const SCHEDULES_API = `${API_URL_BASE}/api/v1/Schedules`;
+const SCHEDULES_GET_BY_ID_API = (id) => `${SCHEDULES_API}/${id}`;
+const SCHEDULES_BY_EMPLOYEE_API = (employeeId) => `${SCHEDULES_API}/ByEmployee/${employeeId}`;
+const SCHEDULES_BY_DAY_API = (dayOfWeek) => `${SCHEDULES_API}/ByDay/${dayOfWeek}`;
+
+// SERVICES
+const SERVICES_API = `${API_URL_BASE}/api/v1/Services`;
+const SERVICES_GET_BY_ID_API = (id) => `${SERVICES_API}/${id}`;
+
+// USERS
+const USERS_API = `${API_URL_BASE}/api/v1/Users`;
+const USERS_GET_BY_ID_API = (id) => `${USERS_API}/${id}`;
+
+// EXPORTAR CONFIGURACIONES
+export {
+    API_URL_BASE,
+    ANNOUNCEMENTS_API,
+    ANNOUNCEMENTS_GET_BY_ID_API,
+    APPOINTMENTS_API,
+    APPOINTMENTS_GET_BY_ID_API,
+    APPOINTMENT_SERVICES_API,
+    APPOINTMENT_SERVICES_GET_BY_ID_API,
+    APPOINTMENT_SERVICES_BY_APPOINTMENT_API,
+    AUTH_API,
+    AUTH_LOGIN_API,
+    AUTH_REGISTER_API,
+    AUTH_NEW_PASSWORD_API,
+    AUTH_UPDATE_API,
+    AVAILABILITY_API,
+    AVAILABILITY_EMPLOYEES_WITH_SLOTS_API,
+    AVAILABILITY_CHECK_API,
+    AVAILABILITY_EMPLOYEE_APPOINTMENTS_API,
+    AVAILABILITY_SERVICES_API,
+    AVAILABILITY_QUICK_CHECK_API,
+    CLIENTS_API,
+    CLIENTS_GET_BY_ID_API,
+    EMPLOYEES_API,
+    EMPLOYEES_GET_BY_ID_API,
+    PAYMENTS_API,
+    PAYMENTS_GET_BY_ID_API,
+    ROLES_API,
+    ROLES_GET_BY_ID_API,
+    SCHEDULES_API,
+    SCHEDULES_GET_BY_ID_API,
+    SCHEDULES_BY_EMPLOYEE_API,
+    SCHEDULES_BY_DAY_API,
+    SERVICES_API,
+    SERVICES_GET_BY_ID_API,
+    USERS_API,
+    USERS_GET_BY_ID_API
+};

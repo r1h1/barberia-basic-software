@@ -124,15 +124,7 @@ body {
 
 .announcement-card {
     border: none;
-    border-radius: 15px;
-    overflow: hidden;
     height: 100%;
-    transition: all 0.3s ease;
-}
-
-.announcement-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .announcement-header {
@@ -143,8 +135,8 @@ body {
 }
 
 .announcement-content {
-    padding: 25px;
-    background: white;
+    padding: 30px;
+    background: #FFFFFF;
 }
 
 .announcement-meta {

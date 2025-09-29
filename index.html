@@ -178,12 +178,9 @@
                         </div>
                         <button type="submit" class="btn btn-login w-100" id="login">Iniciar Sesión</button>
                     </form>
-                    <div class="text-center mt-3">
-                        <a href="#">¿Olvidaste tu contraseña?</a>
-                    </div>
                     <hr>
                     <div class="text-center">
-                        <p>¿No tienes una cuenta? <a href="#">Regístrate aquí</a></p>
+                        <p>¿No tienes una cuenta?, solicita un usuario para acceder</p>
                     </div>
                 </div>
             </div>
@@ -192,16 +189,8 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('loginForm');
-
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                location.href = "src/views/dashboard.html";
-            });
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="src/services/login.js"></script>
 </body>
 
 </html>
