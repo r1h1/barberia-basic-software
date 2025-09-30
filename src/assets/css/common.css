@@ -24,7 +24,7 @@ body {
 
 .navbar-brand {
     font-weight: 700;
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: var(--accent-color) !important;
 }
 
@@ -135,7 +135,7 @@ body {
 }
 
 .announcement-content {
-    padding: 45px;
+    padding: 43px;
     background: #FFFFFF;
 }
 
