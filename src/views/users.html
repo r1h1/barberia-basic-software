@@ -148,11 +148,7 @@
                         <div class="col-12">
                             <label for="role" class="form-label">Rol</label>
                             <select class="form-select" id="role" name="role" required>
-                                <option value="" selected disabled>Seleccione un rol</option>
-                                <option value="Administrador">Administrador</option>
-                                <option value="Barbero">Barbero</option>
-                                <option value="Recepcionista">Recepcionista</option>
-                                <option value="Cliente">Cliente</option>
+                                <!-- Roles cargados de DB -->
                             </select>
                         </div>
                         <div class="col-12">
@@ -201,5 +197,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script type="module" src="../services/users.js"></script>
+    <script type="module" src="../utils/init.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
