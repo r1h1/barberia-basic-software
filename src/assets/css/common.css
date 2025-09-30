@@ -130,12 +130,12 @@ body {
 .announcement-header {
     background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
     color: white;
-    padding: 20px;
+    padding: 30px;
     position: relative;
 }
 
 .announcement-content {
-    padding: 30px;
+    padding: 45px;
     background: #FFFFFF;
 }
 
@@ -143,8 +143,8 @@ body {
     font-size: 0.85rem;
     color: #6c757d;
     border-top: 1px solid #e9ecef;
-    padding-top: 15px;
-    margin-top: 15px;
+    padding-top: 30px;
+    margin-top: 30px;
 }
 
 .announcement-actions {
@@ -158,8 +158,8 @@ body {
 
 .announcement-badge {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 25px;
+    right: 25px;
 }
 
 /* ===== COMPONENTES DE DISPONIBILIDAD ===== */

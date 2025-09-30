@@ -1,16 +1,42 @@
 //Imports
 
-const sessionValidate = () => {
-    const sessionStatus = sessionStorage.getItem("session");
-    if (!sessionStatus || sessionStatus != "ok") {
-        sessionStorage.removeItem("session");
-        location.href = "../../index.html";
+const validateSession = () => {
+    try {
+        const sessionStatus = sessionStorage.getItem("session");
+        const isValid = sessionStatus === "ok";
+        if (!isValid) {
+            sessionStorage.removeItem("session");
+            window.location.href = "../../index.html";
+            return false;
+        }
+        return true;
+    } catch (error) {
+        showError(error);
     }
-    else {
-        console.log("Session OK");
+};
+
+const closeSession = () => {
+    try {
+        const sessionStatus = sessionStorage.getItem("session");
+        const isValid = sessionStatus === "ok";
+        if (isValid) {
+            sessionStorage.removeItem("session");
+            window.location.href = "../../index.html";
+        }
+        return true;
+    } catch (error) {
+        showError(error);
+        sessionStorage.removeItem("session");
+        window.location.href = "../../index.html";
     }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    sessionValidate();
+    validateSession();
+    
+    // Event listener directo para cerrar sesión
+    const closeSessionBtn = document.getElementById('closeSession');
+    if (closeSessionBtn) {
+        closeSessionBtn.addEventListener('click', closeSession);
+    }
 });
