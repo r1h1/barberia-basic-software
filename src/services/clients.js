@@ -317,8 +317,7 @@ const deleteClient = async (row) => {
         }
 
         const confirmed = await showConfirmation(
-            `¿Estás seguro de eliminar al cliente "${clientName}"?`,
-            "Esta acción desactivará al cliente del sistema.",
+            `¿Estás seguro de eliminar al cliente "${clientName}"? Esta acción desactivará al cliente del sistema.`,
             "Sí, eliminar",
             "Cancelar"
         );

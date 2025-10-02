@@ -306,8 +306,7 @@ const deleteService = async (row) => {
         }
 
         const confirmed = await showConfirmation(
-            `¿Estás seguro de eliminar el servicio "${serviceName}"?`,
-            "Esta acción desactivará el servicio del sistema.",
+            `¿Estás seguro de eliminar el servicio "${serviceName}"? Esta acción desactivará el servicio del sistema.`,
             "Sí, eliminar",
             "Cancelar"
         );

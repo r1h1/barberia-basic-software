@@ -105,21 +105,22 @@
     </nav>
 
     <!-- Contenido principal -->
-    <main class="container my-2">
+    <main class="container-fluid my-2">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-7">
                 <div class="main-content">
-                    <h1 class="welcome-title">Citas Programadas</h1>
+                    <h2 class="welcome-title">Citas Programadas</h2>
                     <div class="table-responsive">
                         <table id="appointmentsTable" class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Servicio</th>
                                     <th>Cliente</th>
-                                    <th>Barbero</th>
+                                    <th>Empleado</th>
                                     <th>Fecha</th>
                                     <th>Hora Inicio</th>
-                                    <th>Duración</th>
+                                    <th>Hora Fin</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -131,16 +132,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-5">
                 <div class="main-content">
-                    <h1 class="welcome-title">Mantenimiento de Citas</h1>
+                    <h2 class="welcome-title">Mantenimiento de Citas</h1>
                     <form id="appointmentForm" class="row g-3">
                         <input type="hidden" id="appointmentId" name="appointmentId">
                         
-                        <div class="col-12">
+                        <div class="col-lg-6">
                             <label for="clientId" class="form-label">Cliente</label>
                             <select class="form-select" id="clientId" name="clientId" required>
-                                <option value="" selected disabled>Seleccione un cliente</option>
+                                <option value="" selected disabled>Seleccione cliente</option>
                                 <option value="1">Juan Pérez</option>
                                 <option value="2">María García</option>
                                 <option value="3">Carlos López</option>
@@ -149,38 +150,27 @@
                             </select>
                         </div>
                         
-                        <div class="col-12">
-                            <label for="employeeId" class="form-label">Barbero</label>
+                        <div class="col-lg-6">
+                            <label for="date" class="form-label">Fecha</label>
+                            <input type="date" class="form-control" id="date" name="date" required>
+                        </div>
+                        
+                        <div class="col-lg-12">
+                            <label for="employeeId" class="form-label">Empleado</label>
                             <select class="form-select" id="employeeId" name="employeeId" required>
-                                <option value="" selected disabled>Seleccione un barbero</option>
+                                <option value="" selected disabled>Seleccione empleado</option>
                                 <option value="1">Roberto Silva</option>
                                 <option value="2">Laura Mendoza</option>
                                 <option value="3">Miguel Torres</option>
                             </select>
                         </div>
                         
-                        <div class="col-12">
-                            <label for="date" class="form-label">Fecha</label>
-                            <input type="date" class="form-control" id="date" name="date" required>
-                        </div>
-                        
-                        <div class="col-12">
+                        <div class="col-lg-12">
                             <label for="startTime" class="form-label">Hora de Inicio</label>
                             <input type="time" class="form-control" id="startTime" name="startTime" required>
                         </div>
-                        
-                        <div class="col-12">
-                            <label for="durationMin" class="form-label">Duración (minutos)</label>
-                            <select class="form-select" id="durationMin" name="durationMin" required>
-                                <option value="30">30 minutos</option>
-                                <option value="45">45 minutos</option>
-                                <option value="60" selected>60 minutos</option>
-                                <option value="90">90 minutos</option>
-                                <option value="120">120 minutos</option>
-                            </select>
-                        </div>
-                        
-                        <div class="col-12">
+
+                        <div class="col-lg-12">
                             <label for="serviceName" class="form-label">Servicio</label>
                             <select class="form-select" id="serviceName" name="serviceName" required>
                                 <option value="" selected disabled>Seleccione un servicio</option>
@@ -193,7 +183,19 @@
                             </select>
                         </div>
                         
-                        <div class="col-12">
+                        <div class="col-lg-6">
+                            <label for="durationMin" class="form-label">Duración (minutos)</label>
+                            <select class="form-select" id="durationMin" name="durationMin" required disabled>
+                                <option value="15" selected>15 minutos</option>
+                                <option value="30">30 minutos</option>
+                                <option value="45">45 minutos</option>
+                                <option value="60">60 minutos</option>
+                                <option value="90">90 minutos</option>
+                                <option value="120">120 minutos</option>
+                            </select>
+                        </div>   
+                        
+                        <div class="col-lg-6">
                             <label for="status" class="form-label">Estado</label>
                             <select class="form-select" id="status" name="status" required>
                                 <option value="Programada" selected>Programada</option>
@@ -248,7 +250,7 @@
             </div>
         </div>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->

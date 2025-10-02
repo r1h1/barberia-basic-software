@@ -278,8 +278,7 @@ const deleteEmployee = async (row) => {
         }
 
         const confirmed = await showConfirmation(
-            `¿Estás seguro de eliminar al empleado "${employeeName}"?`,
-            "Esta acción desactivará al empleado del sistema.",
+            `¿Estás seguro de eliminar al empleado "${employeeName}"? Esta acción desactivará al empleado del sistema.`,
             "Sí, eliminar",
             "Cancelar"
         );

@@ -105,19 +105,17 @@
     </nav>
     
     <!-- Contenido principal -->
-    <main class="container my-2">
+    <main class="container-fluid my-2">
         <div class="row">
             <!-- Panel de Búsqueda y Filtros -->
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <div class="main-content">
-                    <h1 class="welcome-title">Consultar Disponibilidad</h1>
+                    <h2 class="welcome-title">Consultar Disponibilidad</h2>
                     
                     <!-- Búsqueda Rápida -->
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">
-                                <i class="bi bi-lightning-charge me-2"></i>Búsqueda Rápida
-                            </h5>
+                            <h5 class="card-title mb-0">Búsqueda Rápida</h5>
                         </div>
                         <div class="card-body">
                             <form id="quickAvailabilityForm">
@@ -146,19 +144,13 @@
                     <!-- Filtros Avanzados -->
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">
-                                <i class="bi bi-funnel me-2"></i>Filtros Avanzados
-                            </h5>
+                            <h5 class="card-title mb-0">Filtros Avanzados</h5>
                         </div>
                         <div class="card-body">
                             <form id="availabilityForm">
                                 <div class="mb-3">
-                                    <label for="employeeSelect" class="form-label">Barbero</label>
+                                    <label for="employeeSelect" class="form-label">Empleados</label>
                                     <select class="form-select" id="employeeSelect">
-                                        <option value="" selected>Todos los barberos</option>
-                                        <option value="1">Roberto Silva</option>
-                                        <option value="2">Laura Mendoza</option>
-                                        <option value="3">Miguel Torres</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
@@ -188,7 +180,7 @@
             </div>
 
             <!-- Resultados y Calendario -->
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <!-- Información de Barberos Disponibles -->
                 <div class="main-content mb-4">
                     <h2 class="welcome-title">Barberos Disponibles</h2>
@@ -265,7 +257,7 @@
             </div>
         </div>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
@@ -274,283 +266,5 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script type="module" src="../services/availability.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Variables globales
-            let selectedEmployee = null;
-            let selectedDate = new Date();
-            let selectedTimeSlot = null;
-
-            // Inicializar DataTable
-            const appointmentsTable = $('#appointmentsTable').DataTable({
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-                },
-                responsive: true,
-                order: [[1, 'desc'], [2, 'asc']]
-            });
-
-            // Datos de ejemplo
-            const employeesData = [
-                {
-                    employeeId: 1,
-                    name: "Roberto Silva",
-                    specialty: "Cortes Clásicos y Barbas",
-                    rating: 4.8,
-                    availableSlots: ["09:00", "10:30", "14:00", "15:30", "17:00"]
-                },
-                {
-                    employeeId: 2,
-                    name: "Laura Mendoza",
-                    specialty: "Estilos Modernos y Color",
-                    rating: 4.9,
-                    availableSlots: ["08:30", "11:00", "13:30", "16:00", "18:30"]
-                },
-                {
-                    employeeId: 3,
-                    name: "Miguel Torres",
-                    specialty: "Afeitado Clásico y Tratamientos",
-                    rating: 4.7,
-                    availableSlots: ["10:00", "12:30", "15:00", "17:30"]
-                }
-            ];
-
-            const appointmentsData = [
-                {
-                    appointmentId: 1,
-                    clientName: "Juan Pérez",
-                    date: "2023-10-20",
-                    startTime: "10:00",
-                    serviceName: "Corte y Barba",
-                    durationMin: 60,
-                    status: "Confirmada",
-                    employeeId: 1
-                },
-                {
-                    appointmentId: 2,
-                    clientName: "María García",
-                    date: "2023-10-20",
-                    startTime: "14:30",
-                    serviceName: "Corte de Cabello",
-                    durationMin: 45,
-                    status: "Programada",
-                    employeeId: 2
-                },
-                {
-                    appointmentId: 3,
-                    clientName: "Carlos López",
-                    date: "2023-10-20",
-                    startTime: "16:00",
-                    serviceName: "Tratamiento Facial",
-                    durationMin: 45,
-                    status: "Confirmada",
-                    employeeId: 3
-                }
-            ];
-
-            // Función para formatear fecha
-            function formatDate(date) {
-                return date.toLocaleDateString('es-ES', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-            }
-
-            // Función para generar horarios del día
-            function generateTimeSlots() {
-                const slots = [];
-                const startHour = 8; // 8:00 AM
-                const endHour = 20; // 8:00 PM
-                
-                for (let hour = startHour; hour < endHour; hour++) {
-                    for (let minute = 0; minute < 60; minute += 30) {
-                        const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-                        slots.push(timeString);
-                    }
-                }
-                return slots;
-            }
-
-            // Cargar empleados
-            function loadEmployees() {
-                const container = $('#employeesContainer');
-                container.empty();
-                
-                employeesData.forEach(employee => {
-                    const employeeCard = `
-                        <div class="col-md-4 mb-3">
-                            <div class="card employee-card ${selectedEmployee === employee.employeeId ? 'selected' : ''}" 
-                                 data-employee-id="${employee.employeeId}">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">${employee.name}</h5>
-                                    <p class="card-text text-muted small">${employee.specialty}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    container.append(employeeCard);
-                });
-            }
-
-            // Cargar horarios disponibles
-            function loadTimeSlots() {
-                const container = $('#timeSlotsContainer');
-                const dateDisplay = $('#currentDateDisplay');
-                
-                // Actualizar display de fecha
-                dateDisplay.text(formatDate(selectedDate));
-                
-                container.empty();
-                
-                const timeSlots = generateTimeSlots();
-                const selectedEmployeeData = employeesData.find(emp => emp.employeeId === selectedEmployee);
-                const bookedSlots = appointmentsData
-                    .filter(apt => apt.employeeId === selectedEmployee && apt.date === selectedDate.toISOString().split('T')[0])
-                    .map(apt => apt.startTime);
-
-                timeSlots.forEach(slot => {
-                    const isAvailable = selectedEmployeeData && 
-                                      selectedEmployeeData.availableSlots.includes(slot) && 
-                                      !bookedSlots.includes(slot);
-                    const isSelected = selectedTimeSlot === slot;
-                    
-                    const slotElement = `
-                        <div class="col-6 col-md-4 col-lg-3 mb-2">
-                            <div class="time-slot ${isAvailable ? 'available' : 'booked'} ${isSelected ? 'selected' : ''}" 
-                                 data-time="${slot}" ${isAvailable ? '' : 'style="opacity: 0.5;"'}>
-                                <div class="text-center">
-                                    <div class="fw-bold">${slot}</div>
-                                    <small>${isAvailable ? 'Disponible' : 'Ocupado'}</small>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    container.append(slotElement);
-                });
-            }
-
-            // Cargar citas del barbero seleccionado
-            function loadEmployeeAppointments() {
-                appointmentsTable.clear();
-                
-                if (!selectedEmployee) return;
-                
-                const employeeAppointments = appointmentsData.filter(apt => apt.employeeId === selectedEmployee);
-                
-                employeeAppointments.forEach(apt => {
-                    const statusBadge = apt.status === 'Confirmada' ? 'bg-success' : 
-                                      apt.status === 'Programada' ? 'bg-primary' : 'bg-secondary';
-                    
-                    appointmentsTable.row.add([
-                        apt.clientName,
-                        formatDate(new Date(apt.date)),
-                        apt.startTime,
-                        apt.serviceName,
-                        apt.durationMin + ' min',
-                        `<span class="badge ${statusBadge}">${apt.status}</span>`
-                    ]);
-                });
-                
-                appointmentsTable.draw();
-            }
-
-            // Event Listeners
-            $(document).on('click', '.employee-card', function() {
-                const employeeId = $(this).data('employee-id');
-                selectedEmployee = employeeId;
-                
-                $('.employee-card').removeClass('selected');
-                $(this).addClass('selected');
-                
-                loadTimeSlots();
-                loadEmployeeAppointments();
-            });
-
-            $(document).on('click', '.time-slot.available', function() {
-                const time = $(this).data('time');
-                selectedTimeSlot = time;
-                
-                $('.time-slot').removeClass('selected');
-                $(this).addClass('selected');
-                
-                // Mostrar modal de confirmación
-                if (selectedEmployee && selectedTimeSlot) {
-                    const employee = employeesData.find(emp => emp.employeeId === selectedEmployee);
-                    showBookingModal(employee.name, selectedTimeSlot);
-                }
-            });
-
-            $('#prevDay').on('click', function() {
-                selectedDate.setDate(selectedDate.getDate() - 1);
-                loadTimeSlots();
-            });
-
-            $('#nextDay').on('click', function() {
-                selectedDate.setDate(selectedDate.getDate() + 1);
-                loadTimeSlots();
-            });
-
-            $('#quickAvailabilityForm').on('submit', function(e) {
-                e.preventDefault();
-                const service = $('#quickService').val();
-                const date = $('#quickDate').val();
-                
-                if (service && date) {
-                    // Simular búsqueda de disponibilidad
-                    alert(`Buscando disponibilidad para el servicio seleccionado en ${date}`);
-                    // Aquí se integraría con el endpoint /api/v1/Availability/QuickAvailabilityCheck
-                }
-            });
-
-            $('#availabilityForm').on('submit', function(e) {
-                e.preventDefault();
-                const employeeId = $('#employeeSelect').val();
-                const startDate = $('#startDate').val();
-                const endDate = $('#endDate').val();
-                const timeSlot = $('#timeSlot').val();
-                
-                // Aplicar filtros
-                if (employeeId) {
-                    selectedEmployee = parseInt(employeeId);
-                    loadEmployees();
-                    loadTimeSlots();
-                    loadEmployeeAppointments();
-                }
-            });
-
-            // Función para mostrar modal de reserva
-            function showBookingModal(employeeName, time) {
-                // En una implementación real, esto abriría un modal de confirmación
-                const formattedDate = formatDate(selectedDate);
-                if (confirm(`¿Confirmar cita con ${employeeName} el ${formattedDate} a las ${time}?`)) {
-                    alert('¡Cita reservada exitosamente!');
-                    // Aquí se integraría con el endpoint POST /api/v1/Availability/CheckAvailability
-                }
-            }
-
-            // Inicialización
-            function initialize() {
-                // Establecer fechas por defecto
-                const today = new Date().toISOString().split('T')[0];
-                $('#quickDate').val(today);
-                $('#startDate').val(today);
-                $('#endDate').val(today);
-                
-                // Cargar datos iniciales
-                loadEmployees();
-                if (employeesData.length > 0) {
-                    selectedEmployee = employeesData[0].employeeId;
-                    $('.employee-card').first().addClass('selected');
-                    loadTimeSlots();
-                    loadEmployeeAppointments();
-                }
-            }
-
-            // Inicializar la aplicación
-            initialize();
-        });
-    </script>
 </body>
 </html>
