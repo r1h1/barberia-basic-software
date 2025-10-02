@@ -113,11 +113,11 @@ const obtainUsers = async () => {
                         render: function (data, type, row) {
                             return `
                                 <button onclick='editUser(${JSON.stringify(row).replace(/'/g, "&#39;").replace(/"/g, "&quot;")})' 
-                                        class="btn btn-warning btn-sm">
+                                        class="btn btn-warning btn-sm mt-2">
                                     <i class="bi bi-pencil"></i> Editar
                                 </button>
                                 <button onclick='deleteUser(${JSON.stringify(row).replace(/'/g, "&#39;").replace(/"/g, "&quot;")})' 
-                                        class="btn btn-danger btn-sm">
+                                        class="btn btn-danger btn-sm mt-2">
                                     <i class="bi bi-trash"></i> Eliminar
                                 </button>
                             `;

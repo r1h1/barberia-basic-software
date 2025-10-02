@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,27 +12,6 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="../assets/css/common.css">
-    <style>
-        .permissions-container {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #dee2e6;
-            border-radius: 0.375rem;
-            padding: 15px;
-        }
-        .permission-group {
-            margin-bottom: 20px;
-        }
-        .permission-group h6 {
-            color: var(--dark-color);
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 5px;
-            margin-bottom: 10px;
-        }
-        .permission-item {
-            margin-bottom: 8px;
-        }
-    </style>
 </head>
 
 <body>
@@ -154,12 +134,12 @@
                     <h1 class="welcome-title">Mantenimiento de Roles</h1>
                     <form id="roleForm" class="row g-3">
                         <input type="hidden" id="roleId" name="roleId">
-                        
+
                         <div class="col-12">
                             <label for="roleName" class="form-label">Nombre del Rol</label>
                             <input type="text" class="form-control" id="roleName" name="roleName" required>
                         </div>
-                        
+
                         <div class="col-12">
                             <label class="form-label">Permisos de Acceso</label>
                             <div class="permissions-container">
@@ -168,7 +148,8 @@
                                     <h6><i class="bi bi-gear me-2"></i>Gestión</h6>
                                     <div class="permission-item">
                                         <div class="form-check">
-                                            <input class="form-check-input menu-access" type="checkbox" value="users" id="permUsers">
+                                            <input class="form-check-input menu-access" type="checkbox" value="users"
+                                                id="permUsers">
                                             <label class="form-check-label" for="permUsers">
                                                 Gestión de Usuarios
                                             </label>
@@ -176,7 +157,8 @@
                                     </div>
                                     <div class="permission-item">
                                         <div class="form-check">
-                                            <input class="form-check-input menu-access" type="checkbox" value="roles" id="permRoles">
+                                            <input class="form-check-input menu-access" type="checkbox" value="roles"
+                                                id="permRoles">
                                             <label class="form-check-label" for="permRoles">
                                                 Gestión de Roles
                                             </label>
@@ -184,7 +166,8 @@
                                     </div>
                                     <div class="permission-item">
                                         <div class="form-check">
-                                            <input class="form-check-input menu-access" type="checkbox" value="employees" id="permEmployees">
+                                            <input class="form-check-input menu-access" type="checkbox"
+                                                value="employees" id="permEmployees">
                                             <label class="form-check-label" for="permEmployees">
                                                 Gestión de Empleados
                                             </label>
@@ -192,20 +175,22 @@
                                     </div>
                                     <div class="permission-item">
                                         <div class="form-check">
-                                            <input class="form-check-input menu-access" type="checkbox" value="clients" id="permClients">
+                                            <input class="form-check-input menu-access" type="checkbox" value="clients"
+                                                id="permClients">
                                             <label class="form-check-label" for="permClients">
                                                 Gestión de Clientes
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Servicios -->
                                 <div class="permission-group">
                                     <h6><i class="bi bi-scissors me-2"></i>Servicios</h6>
                                     <div class="permission-item">
                                         <div class="form-check">
-                                            <input class="form-check-input menu-access" type="checkbox" value="services" id="permServices">
+                                            <input class="form-check-input menu-access" type="checkbox" value="services"
+                                                id="permServices">
                                             <label class="form-check-label" for="permServices">
                                                 Gestión de Servicios
                                             </label>
@@ -213,20 +198,22 @@
                                     </div>
                                     <div class="permission-item">
                                         <div class="form-check">
-                                            <input class="form-check-input menu-access" type="checkbox" value="appointments-services" id="permAppServices">
+                                            <input class="form-check-input menu-access" type="checkbox"
+                                                value="appointments-services" id="permAppServices">
                                             <label class="form-check-label" for="permAppServices">
                                                 Servicios de Citas
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Citas -->
                                 <div class="permission-group">
                                     <h6><i class="bi bi-calendar-event me-2"></i>Citas</h6>
                                     <div class="permission-item">
                                         <div class="form-check">
-                                            <input class="form-check-input menu-access" type="checkbox" value="appointment" id="permAppointment">
+                                            <input class="form-check-input menu-access" type="checkbox"
+                                                value="appointment" id="permAppointment">
                                             <label class="form-check-label" for="permAppointment">
                                                 Programación
                                             </label>
@@ -234,7 +221,8 @@
                                     </div>
                                     <div class="permission-item">
                                         <div class="form-check">
-                                            <input class="form-check-input menu-access" type="checkbox" value="availability" id="permAvailability">
+                                            <input class="form-check-input menu-access" type="checkbox"
+                                                value="availability" id="permAvailability">
                                             <label class="form-check-label" for="permAvailability">
                                                 Disponibilidad
                                             </label>
@@ -242,20 +230,22 @@
                                     </div>
                                     <div class="permission-item">
                                         <div class="form-check">
-                                            <input class="form-check-input menu-access" type="checkbox" value="appointment2" id="permAppointment2">
+                                            <input class="form-check-input menu-access" type="checkbox"
+                                                value="appointments" id="permAppointment2">
                                             <label class="form-check-label" for="permAppointment2">
                                                 Gestión de Citas
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Otros Módulos -->
                                 <div class="permission-group">
                                     <h6><i class="bi bi-layers me-2"></i>Otros Módulos</h6>
                                     <div class="permission-item">
                                         <div class="form-check">
-                                            <input class="form-check-input menu-access" type="checkbox" value="payments" id="permPayments">
+                                            <input class="form-check-input menu-access" type="checkbox" value="payments"
+                                                id="permPayments">
                                             <label class="form-check-label" for="permPayments">
                                                 Gestión de Pagos
                                             </label>
@@ -263,34 +253,28 @@
                                     </div>
                                     <div class="permission-item">
                                         <div class="form-check">
-                                            <input class="form-check-input menu-access" type="checkbox" value="announces" id="permAnnounces">
+                                            <input class="form-check-input menu-access" type="checkbox"
+                                                value="announces" id="permAnnounces">
                                             <label class="form-check-label" for="permAnnounces">
                                                 Gestión de Anuncios
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="permission-item">
-                                        <div class="form-check">
-                                            <input class="form-check-input menu-access" type="checkbox" value="reports" id="permReports">
-                                            <label class="form-check-label" for="permReports">
-                                                Reportes
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-12">
                             <div class="form-check form-switch mt-2">
                                 <input class="form-check-input" type="checkbox" id="isActive" name="isActive" checked>
                                 <label class="form-check-label" for="isActive">Rol Activo</label>
                             </div>
                         </div>
-                        
+
                         <div class="col-12 mt-4">
                             <button type="submit" class="btn btn-success me-2 mt-2" id="submitBtn">Guardar Rol</button>
-                            <button type="button" class="btn btn-secondary mt-2" id="resetBtn">Limpiar Formulario</button>
+                            <button type="button" class="btn btn-secondary mt-2" id="resetBtn">Limpiar
+                                Formulario</button>
                         </div>
                     </form>
                 </div>
@@ -319,7 +303,7 @@
             </div>
         </div>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
@@ -329,4 +313,5 @@
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script type="module" src="../services/roles.js"></script>
 </body>
+
 </html>

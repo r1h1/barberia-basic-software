@@ -120,6 +120,29 @@ body {
     margin: 15px 0;
 }
 
+.permissions-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    padding: 15px;
+}
+
+.permission-group {
+    margin-bottom: 20px;
+}
+
+.permission-group h6 {
+    color: var(--dark-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.permission-item {
+    margin-bottom: 8px;
+}
+
 /* ===== COMPONENTES DE ANUNCIOS ===== */
 
 .announcement-card {
