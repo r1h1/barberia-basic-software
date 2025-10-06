@@ -127,58 +127,6 @@ const loadServices = async () => {
 };
 
 /**
- * Cargar horarios de empleados
- */
-const loadEmployeeSchedules = async () => {
-    try {
-        
-        const response = await getData(SCHEDULES_API);
-
-        if (response && response.success !== false && response.data) {
-            employeeSchedules = response.data;
-            
-            // Mostrar resumen de horarios por empleado
-            const scheduleSummary = {};
-            employeeSchedules.forEach(schedule => {
-                if (!scheduleSummary[schedule.employeeId]) {
-                    scheduleSummary[schedule.employeeId] = [];
-                }
-                scheduleSummary[schedule.employeeId].push({
-                    day: schedule.dayOfWeek,
-                    active: schedule.isActive
-                });
-            });
-            
-        } else {
-            console.warn("No se pudieron cargar los horarios de empleados. Response:", response);
-            employeeSchedules = [
-                // Daniel Morales - Solo Lunes
-                { employeeId: 2, dayOfWeek: "Lunes", isActive: true },
-                
-                // Christopher - Lunes a Viernes
-                { employeeId: 1, dayOfWeek: "Lunes", isActive: true },
-                { employeeId: 1, dayOfWeek: "Martes", isActive: true },
-                { employeeId: 1, dayOfWeek: "Miércoles", isActive: true },
-                { employeeId: 1, dayOfWeek: "Jueves", isActive: true },
-                { employeeId: 1, dayOfWeek: "Viernes", isActive: true }
-            ];
-        }
-    } catch (error) {
-        employeeSchedules = [
-            // Daniel Morales - Solo Lunes
-            { employeeId: 2, dayOfWeek: "Lunes", isActive: true },
-            
-            // Christopher - Lunes a Viernes
-            { employeeId: 1, dayOfWeek: "Lunes", isActive: true },
-            { employeeId: 1, dayOfWeek: "Martes", isActive: true },
-            { employeeId: 1, dayOfWeek: "Miércoles", isActive: true },
-            { employeeId: 1, dayOfWeek: "Jueves", isActive: true },
-            { employeeId: 1, dayOfWeek: "Viernes", isActive: true }
-        ];
-    }
-};
-
-/**
  * Cargar todos los datos necesarios para los selects
  */
 const loadFormData = async () => {
@@ -186,8 +134,7 @@ const loadFormData = async () => {
         await Promise.all([
             loadClients(),
             loadEmployees(),
-            loadServices(),
-            loadEmployeeSchedules()
+            loadServices()
         ]);
     } catch (error) {
         showError("Error al cargar los datos del formulario");
@@ -195,98 +142,6 @@ const loadFormData = async () => {
 };
 
 // ===== FUNCIONES DE DISPONIBILIDAD =====
-
-/**
- * Obtener el día de la semana en español a partir de una fecha
- */
-const getDayOfWeek = (dateString) => {
-    const date = new Date(dateString);
-    const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    return days[date.getDay()];
-};
-
-/**
- * Filtrar empleados disponibles para una fecha específica
- */
-const filterAvailableEmployees = (selectedDate) => {
-    if (!selectedDate || !allEmployees.length) {
-        return allEmployees.filter(emp => emp.isActive);
-    }
-
-    const dayOfWeek = getDayOfWeek(selectedDate);
-
-    // Si no hay horarios cargados, mostrar todos los empleados activos
-    if (!employeeSchedules || employeeSchedules.length === 0) {
-        return allEmployees.filter(emp => emp.isActive);
-    }
-    
-    // Encontrar horarios para el día específico
-    const schedulesForDay = employeeSchedules.filter(schedule => 
-        schedule.dayOfWeek === dayOfWeek && schedule.isActive !== false
-    );
-
-    // Encontrar empleados que tengan horario para este día
-    const availableEmployeeIds = new Set();
-
-    schedulesForDay.forEach(schedule => {
-        availableEmployeeIds.add(schedule.employeeId);
-    });
-
-    // Filtrar empleados activos que tengan horario para este día
-    const availableEmployees = allEmployees.filter(employee =>
-        employee.isActive && availableEmployeeIds.has(employee.employeeId)
-    );
-    
-    return availableEmployees;
-};
-
-/**
- * Actualizar select de empleados basado en la fecha seleccionada
- */
-const updateEmployeeSelect = (selectedDate) => {
-    const employeeSelect = document.getElementById("employeeId");
-    const currentValue = employeeSelect.value;
-
-    employeeSelect.innerHTML = '<option value="" selected disabled>Seleccione un empleado</option>';
-
-    if (!selectedDate) {
-        // Si no hay fecha, mostrar todos los empleados activos
-        const activeEmployees = allEmployees.filter(emp => emp.isActive);
-        
-        activeEmployees.forEach(employee => {
-            const option = document.createElement("option");
-            option.value = employee.employeeId;
-            option.textContent = employee.name;
-            employeeSelect.appendChild(option);
-        });
-        return;
-    }
-
-    const availableEmployees = filterAvailableEmployees(selectedDate);
-
-    if (availableEmployees.length === 0) {
-        const option = document.createElement("option");
-        option.value = "";
-        option.textContent = "No hay empleados disponibles para esta fecha";
-        option.disabled = true;
-        employeeSelect.appendChild(option);
-        console.warn("No hay empleados disponibles para la fecha seleccionada");
-    } else {
-        availableEmployees.forEach(employee => {
-            const option = document.createElement("option");
-            option.value = employee.employeeId;
-            option.textContent = employee.name;
-            employeeSelect.appendChild(option);
-        });
-    }
-
-    // Restaurar valor seleccionado si todavía está disponible
-    if (currentValue && availableEmployees.some(emp => emp.employeeId == currentValue)) {
-        employeeSelect.value = currentValue;
-    } else if (currentValue) {
-        // Si el empleado seleccionado ya no está disponible, mostrar mensaje
-    }
-};
 
 /**
  * Actualizar duración basada en el servicio seleccionado
@@ -477,24 +332,6 @@ const createAppointment = async () => {
             return;
         }
 
-        // Validar disponibilidad del empleado
-        const availableEmployees = filterAvailableEmployees(date);
-        const isEmployeeAvailable = availableEmployees.some(emp => emp.employeeId == employeeId);
-
-        if (!isEmployeeAvailable) {
-            showError("El empleado seleccionado no está disponible para la fecha elegida.");
-            return;
-        }
-
-        // Validar fecha
-        const selectedDate = new Date(date);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        if (selectedDate < today) {
-            showError("No se pueden crear citas en fechas pasadas.");
-            return;
-        }
-
         // Calcular hora de fin
         const endTime = calculateEndTime(startTime, parseInt(durationMin));
         const formattedStartTime = formatTimeToTimeSpan(startTime);
@@ -511,9 +348,8 @@ const createAppointment = async () => {
             notes: notes.trim(),
             status: status,
             isActive: isActive,
-            serviceName: serviceName, // ⚡ ESTE ES EL CAMPO CLAVE
+            serviceName: serviceName,
             durationMin: parseInt(durationMin),
-            // Estos campos podrían ser necesarios para la API
             clientName: "",
             employeeName: "",
             success: 0,
@@ -620,15 +456,6 @@ const updateAppointment = async () => {
         // Validación específica para serviceName
         if (serviceName === "" || serviceName === "Seleccione un servicio") {
             showError("Por favor seleccione un servicio válido.");
-            return;
-        }
-
-        // Validar disponibilidad del empleado
-        const availableEmployees = filterAvailableEmployees(date);
-        const isEmployeeAvailable = availableEmployees.some(emp => emp.employeeId == employeeId);
-
-        if (!isEmployeeAvailable) {
-            showError("El empleado seleccionado no está disponible para la fecha elegida.");
             return;
         }
 
@@ -743,11 +570,7 @@ const clearAppointmentForm = () => {
     document.getElementById("durationMin").value = "30";
     document.getElementById("status").value = "Programada";
     document.getElementById("isActive").checked = true;
-
     document.getElementById("submitBtn").textContent = "Guardar Cita";
-
-    // Actualizar empleados disponibles para la fecha actual
-    updateEmployeeSelect(today);
 };
 
 // ===== ASIGNACIÓN DE FUNCIONES AL SCOPE GLOBAL =====
@@ -771,7 +594,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             e.preventDefault();
 
             const appointmentId = document.getElementById("appointmentId").value;
-            const serviceName = document.getElementById("serviceName").value;
 
             if (appointmentId) {
                 await updateAppointment();
@@ -786,14 +608,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         resetBtn.addEventListener("click", clearAppointmentForm);
     }
 
-    // Nuevos event listeners para funcionalidades mejoradas
-    const dateInput = document.getElementById("date");
-    if (dateInput) {
-        dateInput.addEventListener("change", (e) => {
-            updateEmployeeSelect(e.target.value);
-        });
-    }
-
     const serviceSelect = document.getElementById("serviceName");
     if (serviceSelect) {
         serviceSelect.addEventListener("change", updateDurationFromService);
@@ -806,7 +620,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Cargar datos iniciales
     await loadFormData();
     await obtainAppointments();
-
-    // Actualizar empleados disponibles para la fecha actual
-    updateEmployeeSelect(today);
 });
