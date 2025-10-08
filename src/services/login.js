@@ -25,6 +25,7 @@ const loginAuth = async (event) => {
         if (response && response.success !== false) {
 
             sessionStorage.setItem("session", "ok");
+            sessionStorage.setItem("sessionData", JSON.stringify(response.data));
             
             // Cerrar el modal después de login exitoso
             const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));

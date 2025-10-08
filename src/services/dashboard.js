@@ -2,6 +2,7 @@
 import { ANNOUNCEMENTS_API } from "../config/constants.js";
 import { getData } from "../data/methods.js";
 import { showError } from "../utils/sweetAlert.js";
+import { initializeDynamicMenu } from '../config/menu.js';
 
 const validateSession = () => {
     try {
@@ -9,6 +10,7 @@ const validateSession = () => {
         const isValid = sessionStatus === "ok";
         if (!isValid) {
             sessionStorage.removeItem("session");
+            sessionStorage.removeItem("sessionData");
             window.location.href = "../../index.html";
             return false;
         }
@@ -24,12 +26,14 @@ const closeSession = () => {
         const isValid = sessionStatus === "ok";
         if (isValid) {
             sessionStorage.removeItem("session");
+            sessionStorage.removeItem("sessionData");
             window.location.href = "../../index.html";
         }
         return true;
     } catch (error) {
         showError(error);
         sessionStorage.removeItem("session");
+        sessionStorage.removeItem("sessionData");
         window.location.href = "../../index.html";
     }
 }
@@ -82,6 +86,7 @@ const getAnnounces = async () => {
 document.addEventListener('DOMContentLoaded', function () {
     validateSession();
     getAnnounces();
+    initializeDynamicMenu();
     
     // Event listener directo para cerrar sesión
     const closeSessionBtn = document.getElementById('closeSession');

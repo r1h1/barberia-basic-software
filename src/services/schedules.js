@@ -2,6 +2,7 @@
 import { SCHEDULES_API, SCHEDULES_GET_BY_ID_API, SCHEDULES_BY_EMPLOYEE_API, SCHEDULES_BY_DAY_API, EMPLOYEES_API } from "../config/constants.js";
 import { getData, postData, putData, deleteData } from "../data/methods.js";
 import { showError, showSuccess, showConfirmation } from "../utils/sweetAlert.js";
+import { initializeDynamicMenu } from '../config/menu.js';
 
 // ===== FUNCIONES DE SEGURIDAD =====
 const validateSession = () => {
@@ -10,6 +11,7 @@ const validateSession = () => {
         const isValid = sessionStatus === "ok";
         if (!isValid) {
             sessionStorage.removeItem("session");
+            sessionStorage.removeItem("sessionData");
             window.location.href = "../../index.html";
             return false;
         }
@@ -26,12 +28,14 @@ const closeSession = () => {
         const isValid = sessionStatus === "ok";
         if (isValid) {
             sessionStorage.removeItem("session");
+            sessionStorage.removeItem("sessionData");
             window.location.href = "../../index.html";
         }
         return true;
     } catch (error) {
         showError("Error cerrando sesión: " + error);
         sessionStorage.removeItem("session");
+        sessionStorage.removeItem("sessionData");
         window.location.href = "../../index.html";
     }
 };
@@ -449,6 +453,7 @@ window.deleteSchedule = deleteSchedule;
 document.addEventListener("DOMContentLoaded", async () => {
     // Validar sesión
     validateSession();
+    initializeDynamicMenu();
 
     // Event Listeners
     const closeSessionBtn = document.getElementById("closeSession");
